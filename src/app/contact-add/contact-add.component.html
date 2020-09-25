@@ -1,0 +1,256 @@
+<!-- Add Contact -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-5">
+          <div nz-col nzSpan="24" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>
+                <a routerLink="/contacts">Your Contacts</a>
+              </nz-breadcrumb-item>
+              <nz-breadcrumb-item>Add Contact</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+        </div>
+
+
+        <nz-steps [nzCurrent]="currentStep" nzProgressDot class="luxx-steps">
+          <nz-step nzTitle="Company Info" nzDescription="Company, job position, etc."></nz-step>
+          <nz-step nzTitle="Basic Info" nzDescription="Full name, stage, email, etc."></nz-step>
+          <nz-step nzTitle="Social Links" nzDescription="LinkedIn, Facebook, GitHub, etc."></nz-step>
+        </nz-steps>
+
+        <form nz-form [formGroup]="addContactForm" (ngSubmit)="submitAddContact(addContactForm.value)">
+
+          <div nz-row nzGutter="30" class="mt-lg-5">
+            <div nz-col nzSpan="12">
+
+              <!-- Company Info -->
+              <div *ngIf="currentStep == 0">
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactCompany">Company</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactCompanyErrors">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select contact company" formControlName="company" id="contactCompany" (ngModelChange)="companySelectedEvent($event)">
+                      <nz-option [nzLabel]="company.name" [nzValue]="company._id" *ngFor="let company of companies"></nz-option>
+                    </nz-select>
+                    <ng-template #contactCompanyErrors let-control>
+                      <div *ngFor="let validation of validation_messages.company">
+                        <div *ngIf="addContactForm.get('company').hasError(validation.type) && (addContactForm.get('company').dirty || addContactForm.get('company').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactJobPosition" [nzRequired]="companySelected">Job position</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactJobPositionErrors">
+                    <input nz-input placeholder="Contact job position" formControlName="companyPosition" id="contactJobPosition">
+                    <ng-template #contactJobPositionErrors let-control>
+                      <div *ngFor="let validation of validation_messages.companyPosition">
+                        <div *ngIf="addContactForm.get('companyPosition').hasError(validation.type) && (addContactForm.get('companyPosition').dirty || addContactForm.get('companyPosition').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <!-- Basic Info -->
+              <div *ngIf="currentStep == 1">
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactStage">Stage</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactStageErrors">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select contact stage" formControlName="stage" id="contactStage" required [nzCustomTemplate]="contactStageSelected">
+                      <nz-option nzCustomContent nzLabel="Prospecting" nzValue="prospecting">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('prospecting')">Prospecting</nz-tag> Prospecting
+                      </nz-option>
+                      <nz-option nzCustomContent nzLabel="Securing Lead" nzValue="securing-lead">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('securing-lead')">Securing Lead</nz-tag> Securing Lead
+                      </nz-option>
+                      <nz-option nzCustomContent nzLabel="Pitching Solution" nzValue="pitching-solution">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('pitching-solution')">Pitching Solution</nz-tag> Pitching Solution
+                      </nz-option>
+                      <nz-option nzCustomContent nzLabel="Qualifying Deals" nzValue="qualifying-deals">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('qualifying-deals')">Qualifying Deals</nz-tag> Qualifying Deals
+                      </nz-option>
+                      <nz-option nzCustomContent nzLabel="Sending Proposal" nzValue="sending-proposal">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('sending-proposal')">Sending Proposal</nz-tag> Sending Proposal
+                      </nz-option>
+                      <nz-option nzCustomContent nzLabel="Deal Negotiation" nzValue="deal-negotiation">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('deal-negotiation')">Deal Negotiation</nz-tag> Deal Negotiation
+                      </nz-option>
+                      <nz-option nzCustomContent nzLabel="Closure" nzValue="closure">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('closure')">Closure</nz-tag> Closure
+                      </nz-option>
+                    </nz-select>
+                    <ng-template #contactStageSelected let-selected>
+                      <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor(selected.nzValue)">{{ selected.nzLabel }}</nz-tag> {{ selected.nzLabel }}
+                    </ng-template>
+                    <ng-template #contactStageErrors let-control>
+                      <div *ngFor="let validation of validation_messages.stage">
+                        <div *ngIf="addContactForm.get('stage').hasError(validation.type) && (addContactForm.get('stage').dirty || addContactForm.get('stage').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-divider></nz-divider>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactFullName">Full name</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactFullNameErrors">
+                    <input nz-input placeholder="Contact full name" formControlName="fullName" id="contactFullName" required>
+                    <ng-template #contactFullNameErrors let-control>
+                      <div *ngFor="let validation of validation_messages.fullName">
+                        <div *ngIf="addContactForm.get('fullName').hasError(validation.type) && (addContactForm.get('fullName').dirty || addContactForm.get('fullName').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactEmail">Email</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactEmailErrors">
+                    <input nz-input type="email" placeholder="Contact email address" formControlName="email" id="contactEmail" required>
+                    <ng-template #contactEmailErrors let-control>
+                      <div *ngFor="let validation of validation_messages.email">
+                        <div *ngIf="addContactForm.get('email').hasError(validation.type) && (addContactForm.get('email').dirty || addContactForm.get('email').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactPhone">Phone</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactPhoneErrors">
+                    <input nz-input placeholder="Contact phone number" formControlName="phone" id="contactPhone">
+                    <ng-template #contactPhoneErrors let-control>
+                      <div *ngFor="let validation of validation_messages.phone">
+                        <div *ngIf="addContactForm.get('phone').hasError(validation.type) && (addContactForm.get('phone').dirty || addContactForm.get('phone').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactCountry">Country</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactCountryErrors">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select contact country" formControlName="country" id="contactCountry" [nzCustomTemplate]="contactCountrySelected">
+                      <nz-option nzCustomContent [nzLabel]="c.label" [nzValue]="c.value" *ngFor="let c of utilsService.countries">
+                        <div class="luxx-select-option-image mr-lg-2"><img src="assets/img/flags/{{ c.flag }}"></div> {{ c.label }}
+                      </nz-option>
+                    </nz-select>
+                    <ng-template #contactCountrySelected let-selected>
+                      <div class="luxx-select-option-image mr-lg-2"><img src="assets/img/flags/{{ selected.nzValue }}.png"></div> {{ selected.nzLabel }}
+                    </ng-template>
+                    <ng-template #contactCountryErrors let-control>
+                      <div *ngFor="let validation of validation_messages.country">
+                        <div *ngIf="addContactForm.get('country').hasError(validation.type) && (addContactForm.get('country').dirty || addContactForm.get('country').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactAddress">Address</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactAddressErrors">
+                    <input nz-input placeholder="Contact address" formControlName="address" id="contactAddress">
+                    <ng-template #contactAddressErrors let-control>
+                      <div *ngFor="let validation of validation_messages.address">
+                        <div *ngIf="addContactForm.get('address').hasError(validation.type) && (addContactForm.get('address').dirty || addContactForm.get('address').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <!-- Social Links -->
+              <div *ngIf="currentStep == 2">
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactFacebook">Facebook</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactFacebookErrors">
+                    <input nz-input placeholder="Contact Facebook link" formControlName="facebook" id="contactFacebook">
+                    <ng-template #contactFacebookErrors let-control>
+                      <div *ngFor="let validation of validation_messages.facebook">
+                        <div *ngIf="addContactForm.get('facebook').hasError(validation.type) && (addContactForm.get('facebook').dirty || addContactForm.get('facebook').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactLinkedIn">LinkedIn</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactLinkedInErrors">
+                    <input nz-input placeholder="Contact LinkedIn link" formControlName="linkedin" id="contactLinkedIn">
+                    <ng-template #contactLinkedInErrors let-control>
+                      <div *ngFor="let validation of validation_messages.linkedin">
+                        <div *ngIf="addContactForm.get('linkedin').hasError(validation.type) && (addContactForm.get('linkedin').dirty || addContactForm.get('linkedin').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactTwitter">Twitter</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactTwitterErrors">
+                    <input nz-input placeholder="Contact Twitter link" formControlName="twitter" id="contactTwitter">
+                    <ng-template #contactTwitterErrors let-control>
+                      <div *ngFor="let validation of validation_messages.twitter">
+                        <div *ngIf="addContactForm.get('twitter').hasError(validation.type) && (addContactForm.get('twitter').dirty || addContactForm.get('twitter').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactInstagram">Instagram</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactInstagramErrors">
+                    <input nz-input placeholder="Contact Instagram link" formControlName="instagram" id="contactInstagram">
+                    <ng-template #contactInstagramErrors let-control>
+                      <div *ngFor="let validation of validation_messages.instagram">
+                        <div *ngIf="addContactForm.get('instagram').hasError(validation.type) && (addContactForm.get('instagram').dirty || addContactForm.get('instagram').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactGitHub">GitHub</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactGitHubErrors">
+                    <input nz-input placeholder="Contact GitHub link" formControlName="github" id="contactGitHub">
+                    <ng-template #contactGitHubErrors let-control>
+                      <div *ngFor="let validation of validation_messages.github">
+                        <div *ngIf="addContactForm.get('github').hasError(validation.type) && (addContactForm.get('github').dirty || addContactForm.get('github').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="contactYouTube">YouTube</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="contactYouTubeErrors">
+                    <input nz-input placeholder="Contact YouTube link" formControlName="youtube" id="contactYouTube">
+                    <ng-template #contactYouTubeErrors let-control>
+                      <div *ngFor="let validation of validation_messages.youtube">
+                        <div *ngIf="addContactForm.get('youtube').hasError(validation.type) && (addContactForm.get('youtube').dirty || addContactForm.get('youtube').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+            </div>
+          </div>
+
+          <nz-divider></nz-divider>
+
+          <div nz-row nzGutter="30">
+            <div nz-col nzSpan="12">
+              <button nz-button nzType="default" class="luxx-btn" (click)="changeStep(0)" *ngIf="currentStep == 1"><i nz-icon nzType="arrow-left"></i>Back</button>
+              <button nz-button nzType="default" class="luxx-btn" (click)="changeStep(1)" *ngIf="currentStep == 2"><i nz-icon nzType="arrow-left"></i>Back</button>
+            </div>
+            <div nz-col nzSpan="12" class="text-right">
+              <button nz-button nzType="primary" class="luxx-btn" (click)="changeStep(1)" *ngIf="currentStep == 0">Next<i nz-icon nzType="arrow-right"></i></button>
+              <button nz-button nzType="primary" class="luxx-btn" (click)="changeStep(2)" *ngIf="currentStep == 1">Next<i nz-icon nzType="arrow-right"></i></button>
+              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addContactForm.valid" *ngIf="currentStep == 2"><i nz-icon nzType="plus"></i>Submit Add Contact</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

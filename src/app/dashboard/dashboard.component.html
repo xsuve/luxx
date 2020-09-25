@@ -1,0 +1,53 @@
+<!-- Dashboard -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <nz-row [nzGutter]="24">
+          <nz-col [nzSpan]="8">
+            <nz-card [nzBordered]="false">
+              <nz-statistic
+                [nzValue]="(28453.84 | number: '1.0-2')!"
+                [nzTitle]="'Total Sales'"
+                [nzPrefix]="totalSalesPrefix"
+                [nzSuffix]="'$'"
+                [nzValueStyle]="{ color: '#3F8600' }"
+              >
+              </nz-statistic>
+              <ng-template #totalSalesPrefix><i nz-icon nzType="arrow-up"></i></ng-template>
+            </nz-card>
+          </nz-col>
+          <nz-col [nzSpan]="8">
+            <nz-card [nzBordered]="false">
+              <nz-statistic
+                [nzValue]="(142 | number: '1.0')!"
+                [nzTitle]="'Total Contacts'"
+                [nzSuffix]="''"
+              >
+              </nz-statistic>
+            </nz-card>
+          </nz-col>
+          <nz-col [nzSpan]="8">
+            <nz-card [nzBordered]="false">
+              <nz-statistic
+                [nzValue]="(11.28 | number: '1.0-2')!"
+                [nzTitle]="'Total Revenue'"
+                [nzPrefix]="totalRevenuePrefix"
+                [nzSuffix]="'%'"
+                [nzValueStyle]="{ color: '#CF1322' }"
+              >
+              </nz-statistic>
+              <ng-template #totalRevenuePrefix><i nz-icon nzType="arrow-down"></i></ng-template>
+            </nz-card>
+          </nz-col>
+        </nz-row>
+
+      </div>
+    </nz-content>
+    <!-- <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer> -->
+  </nz-layout>
+</nz-layout>

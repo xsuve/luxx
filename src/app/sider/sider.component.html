@@ -1,0 +1,45 @@
+<nz-sider nzTheme="light" nzBreakpoint="md" [nzCollapsedWidth]="64">
+  <a routerLink="/">
+    <div class="logo">
+      <img src="assets/img/luxx-logo-color.svg" class="d-inline-block align-top" alt="luxx CRM">
+      <span class="ml-lg-2 d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">luxx</span>
+    </div>
+  </a>
+  <ul nz-menu nzTheme="light" nzMode="inline" class="sider-menu">
+    <li nz-menu-item routerLink="/dashboard" [nzSelected]="activeRoute == 'dashboard' ? true : false">
+      <i nz-icon nzType="home"></i>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Dashboard</span>
+    </li>
+    <li nz-menu-item routerLink="/contacts" [nzSelected]="activeRoute == 'contacts' ? true : false">
+      <i nz-icon nzType="user"></i>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Contacts</span>
+    </li>
+    <li nz-menu-item routerLink="/companies" [nzSelected]="activeRoute == 'companies' ? true : false">
+      <i nz-icon nzType="shop"></i>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Companies</span>
+    </li>
+    <li nz-menu-item routerLink="/pipelines" [nzSelected]="activeRoute == 'pipelines' ? true : false">
+      <i nz-icon nzType="filter"></i>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Pipelines</span>
+    </li>
+    <li nz-menu-item routerLink="/analytics" [nzSelected]="activeRoute == 'analytics' ? true : false">
+      <i nz-icon nzType="pie-chart"></i>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Analytics</span>
+    </li>
+    <li nz-menu-item routerLink="/apps" [nzSelected]="activeRoute == 'apps' ? true : false">
+      <i nz-icon nzType="appstore"></i>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Apps</span>
+    </li>
+  </ul>
+  <div class="sider-upgrade p-lg-3">
+    <div class="sider-upgrade-box p-lg-4 text-center">
+      <div class="sider-upgrade-box-image">
+        <img src="assets/img/pro-upgrade.svg">
+      </div>
+      <span nz-typography class="d-block mt-lg-3 mb-lg-3">Upgrade to <strong>Pro</strong> for more features.</span>
+      <a routerLink="/account/upgrade">
+        <button nz-button nzType="primary" class="luxx-btn">Upgrade</button>
+      </a>
+    </div>
+  </div>
+</nz-sider>

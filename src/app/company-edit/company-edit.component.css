@@ -1,0 +1,9 @@
+/* Company Edit */
+
+.image-upload > .ant-upload {
+  width: 72px;
+  height: 72px;
+}
+.ant-upload-text {
+  font-size: 12px;
+}

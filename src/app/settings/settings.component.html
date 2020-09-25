@@ -1,0 +1,68 @@
+<!-- Settings -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-4 mb-3">
+          <div nz-col nzSpan="16" nzXs="8" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>Settings</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+          <div nz-col nzSpan="8" nzXs="16" class="text-right">
+            <!--  -->
+          </div>
+        </div>
+
+
+        <nz-row [nzGutter]="30">
+
+          <nz-col [nzSpan]="12" nzXs="24" nzLg="12" class="mb-3 mb-lg-4">
+            <nz-card [nzBordered]="false" class="luxx-card">
+              <form nz-form [formGroup]="settingsForm" nzLayout="horizontal" (ngSubmit)="submitAddPipeline(addPipelineForm.value)">
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="settingsLanguage">Language</nz-form-label>
+                  <nz-form-control [nzErrorTip]="settingsLanguageErrors">
+                    <nz-select nzShowSearch nzPlaceHolder="Select language" formControlName="language" id="settingsLanguage" (ngModelChange)="languageSelectedEvent($event)">
+                      <nz-option [nzLabel]="availableLanguage" [nzValue]="availableLanguage" *ngFor="let availableLanguage of availableLanguages"></nz-option>
+                    </nz-select>
+                    <ng-template #settingsLanguageErrors let-control>
+                      <div *ngFor="let validation of validation_messages.language">
+                        <div *ngIf="settingsForm.get('language').hasError(validation.type) && (settingsForm.get('language').dirty || settingsForm.get('language').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="settingsCurrency">Currency</nz-form-label>
+                  <nz-form-control [nzErrorTip]="settingsCurrencyErrors">
+                    <nz-select nzShowSearch nzPlaceHolder="Select currency" formControlName="currency" id="settingsCurrency" (ngModelChange)="currencySelectedEvent($event)">
+                      <nz-option [nzLabel]="availableCurrency" [nzValue]="availableCurrency" *ngFor="let availableCurrency of availableCurrencies"></nz-option>
+                    </nz-select>
+                    <ng-template #settingsCurrencyErrors let-control>
+                      <div *ngFor="let validation of validation_messages.currency">
+                        <div *ngIf="settingsForm.get('currency').hasError(validation.type) && (settingsForm.get('currency').dirty || settingsForm.get('currency').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input mb-lg-0">
+                  <nz-form-label [nzSpan]="4" nzFor="darkMode">Dark Mode</nz-form-label>
+                  <nz-form-control [nzSpan]="20">
+                    <nz-switch formControlName="darkMode" id="darkMode"></nz-switch>
+                  </nz-form-control>
+                </nz-form-item>
+              </form>
+            </nz-card>
+          </nz-col>
+
+        </nz-row>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,43 @@
+/* Contact View */
+.contact-view-content {
+  padding-top: 0px;
+  padding-right: 0px;
+}
+.contact-view-content .contact-view-main-col {
+  padding-top: 30px;
+  padding-right: 30px;
+}
+
+.contact-view {
+  padding: 30px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.contact-view .ant-dropdown-trigger {
+  color: rgba(25, 59, 104, 0.45);
+}
+.contact-view .ant-dropdown-trigger i {
+  vertical-align: top;
+}
+
+.contact-view-company .contact-view-company-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid #e8e8e8;
+}
+.contact-view-company .contact-view-company-icon i {
+  font-size: 22px;
+  color: rgba(25, 59, 104, 0.65);
+}
+.contact-view-company h6 {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(25, 59, 104, 0.85);
+}
+.contact-view-company p {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(25, 59, 104, 0.65);
+}

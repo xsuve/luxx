@@ -1,0 +1,141 @@
+<!-- Add Company -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-5">
+          <div nz-col nzSpan="24" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>
+                <a routerLink="/companies">Your Companies</a>
+              </nz-breadcrumb-item>
+              <nz-breadcrumb-item>Add Company</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+        </div>
+
+        <form nz-form [formGroup]="addCompanyForm" (ngSubmit)="submitAddCompany(addCompanyForm.value)">
+
+          <div nz-row nzGutter="30" class="mt-lg-5">
+            <div nz-col nzSpan="12">
+
+              <!-- Company Info -->
+              <div *ngIf="currentStep == 0">
+                <nz-form-item>
+                  <nz-form-label>Image</nz-form-label>
+                  <nz-upload
+                    class="image-upload"
+                    nzAction="https://run.mocky.io/v3/261645aa-e8a4-49bb-8922-1cc99e7544ca"
+                    nzName="image"
+                    nzListType="picture-card"
+                    [nzShowUploadList]="false"
+                    [nzBeforeUpload]="beforeUpload"
+                    (nzChange)="handleChange($event)"
+                  >
+                    <ng-container *ngIf="!avatarUrl">
+                      <i class="upload-icon" nz-icon [nzType]="loadingImagePreview ? 'loading' : 'plus'"></i>
+                      <div class="ant-upload-text">Upload</div>
+                    </ng-container>
+                    <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%">
+                  </nz-upload>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="companyIndustry">Industry</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="companyIndustryErrors">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select company industry" formControlName="industry" id="companyIndustry">
+                      <nz-option [nzLabel]="industry.name" [nzValue]="industry.value" *ngFor="let industry of utilsService.companyIndustries"></nz-option>
+                    </nz-select>
+                    <ng-template #companyIndustryErrors let-control>
+                      <div *ngFor="let validation of validation_messages.industry">
+                        <div *ngIf="addCompanyForm.get('industry').hasError(validation.type) && (addCompanyForm.get('industry').dirty || addCompanyForm.get('industry').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="companyName">Name</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="companyNameErrors">
+                    <input nz-input placeholder="Company name" formControlName="name" id="companyName">
+                    <ng-template #companyNameErrors let-control>
+                      <div *ngFor="let validation of validation_messages.name">
+                        <div *ngIf="addCompanyForm.get('name').hasError(validation.type) && (addCompanyForm.get('name').dirty || addCompanyForm.get('name').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="luxx-input">
+                  <nz-form-label nzFor="companyWebsite">Website</nz-form-label>
+                  <nz-form-control nzHasFeedback [nzErrorTip]="companyWebsiteErrors">
+                    <input nz-input placeholder="Company website" formControlName="website" id="companyWebsite">
+                    <ng-template #companyWebsiteErrors let-control>
+                      <div *ngFor="let validation of validation_messages.website">
+                        <div *ngIf="addCompanyForm.get('website').hasError(validation.type) && (addCompanyForm.get('website').dirty || addCompanyForm.get('website').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                      </div>
+                    </ng-template>
+                  </nz-form-control>
+                </nz-form-item>
+                <div nz-row nzGutter="30">
+                  <div nz-col nzSpan="12">
+                    <nz-form-item class="luxx-input">
+                      <nz-form-label nzFor="companyNumberOfEmployees">Number of employees</nz-form-label>
+                      <nz-form-control nzHasFeedback [nzErrorTip]="companyNumberOfEmployeesErrors">
+                        <nz-input-number
+                          formControlName="numberOfEmployees"
+                          id="companyNumberOfEmployees"
+                          [nzMin]="0"
+                          [nzStep]="1"
+                          [ngModel]="0"
+                        ></nz-input-number>
+                        <ng-template #companyNumberOfEmployeesErrors let-control>
+                          <div *ngFor="let validation of validation_messages.numberOfEmployees">
+                            <div *ngIf="addCompanyForm.get('numberOfEmployees').hasError(validation.type) && (addCompanyForm.get('numberOfEmployees').dirty || addCompanyForm.get('numberOfEmployees').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                          </div>
+                        </ng-template>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col nzSpan="12">
+                    <nz-form-item class="luxx-input">
+                      <nz-form-label nzFor="companyAnnualRevenue">Annual revenue</nz-form-label>
+                      <nz-form-control nzHasFeedback [nzErrorTip]="companyAnnualRevenueErrors">
+                        <nz-input-number
+                          formControlName="annualRevenue"
+                          id="companyAnnualRevenue"
+                          [nzMin]="0"
+                          [nzStep]="10"
+                          [ngModel]="0"
+                          [nzFormatter]="utilsService.formatterDollar"
+                          [nzParser]="utilsService.parserDollar"
+                        ></nz-input-number>
+                        <ng-template #companyAnnualRevenueErrors let-control>
+                          <div *ngFor="let validation of validation_messages.annualRevenue">
+                            <div *ngIf="addCompanyForm.get('annualRevenue').hasError(validation.type) && (addCompanyForm.get('annualRevenue').dirty || addCompanyForm.get('annualRevenue').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                          </div>
+                        </ng-template>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <nz-divider></nz-divider>
+
+          <div nz-row nzGutter="30">
+            <div nz-col nzSpan="24" class="text-right">
+              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addCompanyForm.valid"><i nz-icon nzType="plus"></i>Submit Add Company</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

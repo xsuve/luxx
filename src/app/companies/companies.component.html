@@ -1,0 +1,92 @@
+<!-- Companies -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-4">
+          <div nz-col nzSpan="16" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>Your Companies</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+          <div nz-col nzSpan="8" class="text-right">
+            <button nz-button nzType="default" class="luxx-btn mr-lg-4" (click)="toggleFilters()"><i nz-icon nzType="filter"></i>Filter</button>
+            <a routerLink="/companies/add">
+              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i>Add Company</button>
+            </a>
+          </div>
+        </div>
+
+
+        <nz-row [nzGutter]="30">
+
+          <nz-col [nzSpan]="6" *ngFor="let company of companies">
+            <nz-card [nzBordered]="false" [nzActions]="[actionEdit, actionDelete]" class="luxx-card text-center">
+              <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="descriptionTemplate"></nz-card-meta>
+            </nz-card>
+            <ng-template #titleTemplate class="mb-lg-0">
+              <a routerLink="/company/{{ company._id }}">
+                <nz-avatar [nzSize]="64" [nzText]="utilsService.formatInitials(company.name)" class="luxx-card-avatar bg-primary-light text-primary mb-lg-4"></nz-avatar>
+                <!-- <ng-template #contactCompanyTemplate>
+                  <div class="luxx-card-avatar-badge">
+                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/092015/google_new_logo_fav_icon.png?itok=JLjdBZEh">
+                  </div>
+                </ng-template> -->
+                <h4 nz-typography class="luxx-card-title mb-lg-0">{{ company.name }}</h4>
+              </a>
+            </ng-template>
+            <ng-template #descriptionTemplate>
+              <a routerLink="/company/{{ company._id }}">
+                <span nz-typography class="luxx-card-text d-block">{{ company.industry }}</span>
+              </a>
+            </ng-template>
+            <ng-template #actionEdit>
+              <a routerLink="/company/edit/{{ company._id }}">
+                <i nz-icon nzType="edit"></i>
+              </a>
+            </ng-template>
+            <ng-template #actionDelete>
+              <a (click)="deleteCompany(company._id)">
+                <i nz-icon nzType="delete"></i>
+              </a>
+            </ng-template>
+          </nz-col>
+
+        </nz-row>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+
+<!-- Filters -->
+<!-- <nz-drawer [nzClosable]="false" [nzVisible]="filtersToggled" nzPlacement="right" nzTitle="Filters" (nzOnClose)="toggleFilters()">
+  <div class="luxx-filters-content">
+    <div class="mb-lg-5">
+      <p class="mb-lg-2">SEARCH</p>
+      <div class="luxx-input">
+        <input nz-input placeholder="Search by name" [(ngModel)]="query">
+      </div>
+    </div>
+    <div class="mb-lg-5">
+      <p class="mb-lg-2">STAGE</p>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2">Subscriber</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2">Lead</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox">Connected</label>
+    </div>
+    <div class="mb-lg-5">
+      <p class="mb-lg-2">COMPANY</p>
+      <div *ngFor="let company of companies">
+        <label nz-checkbox class="luxx-checkbox mb-lg-2">{{ company.name }}</label>
+        <br>
+      </div>
+    </div>
+  </div>
+</nz-drawer> -->

@@ -1,0 +1,40 @@
+nz-header {
+  background: #fff;
+  padding: 0px 30px;
+  position: fixed;
+  width: calc(100% - 200px);
+  z-index: 999;
+  top: 0px;
+  right: 0px;
+  left: 200px;
+}
+
+.page-header {
+  padding: 0px;
+}
+.page-header-title {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+.nav-dropdown-menu {
+  min-width: 120px;
+}
+.nav-dropdown-menu li {
+  font-size: 13px;
+}
+.nav-icon {
+  color: rgba(25, 59, 104, 0.65);
+}
+
+
+
+/* Responsive */
+@media (max-width: 575.98px) {
+  nz-header {
+    width: calc(100% - 64px);
+    left: 64px;
+    padding: 0px 15px;
+  }
+}

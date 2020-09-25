@@ -1,0 +1,43 @@
+<nav class="navbar fixed-top navbar-light bg-white navbar-expand-lg">
+  <div class="container container-custom">
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/img/luxx-logo-color.svg" width="30" height="30" class="d-inline-block align-top mr-lg-1" alt="luxx CRM">
+      luxx
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-lg-auto">
+        <li class="nav-item">
+          <a class="nav-link vm active" aria-current="page" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link vm" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link vm" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link vm" href="#">Modules <span class="badge bg-primary nav-link-badge ml-lg-2">SOON</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link vm" routerLink="/support">Support</a>
+        </li>
+        <li class="nav-item ml-lg-5" *ngIf="!isLoggedIn">
+          <a class="nav-link vm" routerLink="/login">Log In</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link vm" routerLink="/signup">
+            <button type="button" class="btn btn-primary btn-sm nav-btn">Sign Up</button>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link vm" routerLink="/dashboard">
+            <nz-avatar [nzText]="utilsService.formatInitials(loggedInUser.fullName)"></nz-avatar>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

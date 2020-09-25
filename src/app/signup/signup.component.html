@@ -1,0 +1,52 @@
+<!-- Sign Up -->
+<div class="form">
+  <div nz-row>
+    <div nz-col nzSpan="14">
+      <div class="form-side bg-primary"></div>
+    </div>
+    <div nz-col nzSpan="10">
+      <div class="form-side bg-white p-lg-5">
+        <div class="vm">
+          <a class="logo" routerLink="/">
+            <img src="assets/img/luxx-logo-color.svg" class="d-inline-block align-middle mr-lg-2" alt="luxx CRM">
+            luxx
+          </a>
+          <h3 class="mt-lg-5 mb-lg-5">Sign up for an account</h3>
+          <form [formGroup]="signUpForm" novalidate (ngSubmit)="submitSignUp(signUpForm.value)">
+            <nz-form-item class="luxx-input">
+              <nz-form-label nzFor="fullName">Full name</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="fullNameErrors">
+                <input nz-input placeholder="Your full name" formControlName="fullName" id="fullName" required>
+                <ng-template #fullNameErrors let-control>
+                  <div *ngFor="let validation of validation_messages.fullName">
+                    <div *ngIf="signUpForm.get('fullName').hasError(validation.type) && (signUpForm.get('fullName').dirty || signUpForm.get('fullName').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                  </div>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="luxx-input">
+              <nz-form-label nzFor="email">Email</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="emailErrors">
+                <input nz-input placeholder="Your email address" formControlName="email" id="email" required>
+                <ng-template #emailErrors let-control>
+                  <div *ngFor="let validation of validation_messages.email">
+                    <div *ngIf="signUpForm.get('email').hasError(validation.type) && (signUpForm.get('email').dirty || signUpForm.get('email').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                  </div>
+                </ng-template>
+              </nz-form-control>
+              <div class="form-text mt-lg-3 mb-lg-3">Password-less sign up. An email will be sent to you to verify your account.</div>
+            </nz-form-item>
+            <nz-alert [nzType]="validation_messages.alert.type" [nzMessage]="validation_messages.alert.message" *ngIf="validation_messages.alert.message.length > 0" class="luxx-alert mb-lg-4"></nz-alert>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!signUpForm.valid">Sign Up</button>
+          </form>
+          <div class="mt-lg-4 text-right">
+            <p class="mb-lg-0">
+              Already have an account?
+              <a routerLink="/login">Log In</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

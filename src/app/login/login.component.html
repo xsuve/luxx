@@ -1,0 +1,41 @@
+<!-- Log In -->
+<div class="form">
+  <div nz-row>
+    <div nz-col nzSpan="14" nzXs="0">
+      <div class="form-side bg-primary d-none d-lg-block"></div>
+    </div>
+    <div nz-col nzSpan="10" nzXs="24">
+      <div class="form-side bg-white p-lg-5">
+        <div class="vm">
+          <a class="logo" routerLink="/">
+            <img src="assets/img/luxx-logo-color.svg" class="d-inline-block align-middle mr-lg-2" alt="luxx CRM">
+            luxx
+          </a>
+          <h3 class="mt-lg-5 mb-lg-5">Log into your account</h3>
+          <form [formGroup]="logInForm" novalidate (ngSubmit)="submitLogIn(logInForm.value)">
+            <nz-form-item class="luxx-input">
+              <nz-form-label nzFor="email">Email</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="emailErrors">
+                <input nz-input placeholder="Your email address" formControlName="email" id="email" required>
+                <ng-template #emailErrors let-control>
+                  <div *ngFor="let validation of validation_messages.email">
+                    <div *ngIf="logInForm.get('email').hasError(validation.type) && (logInForm.get('email').dirty || logInForm.get('email').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                  </div>
+                </ng-template>
+              </nz-form-control>
+              <div class="form-text mt-lg-3 mb-lg-3">Password-less log in. The log in link will be sent via your account email.</div>
+            </nz-form-item>
+            <nz-alert [nzType]="validation_messages.alert.type" [nzMessage]="validation_messages.alert.message" *ngIf="validation_messages.alert.message.length > 0" class="luxx-alert mb-lg-4"></nz-alert>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!logInForm.valid">Log In</button>
+          </form>
+          <div nz-row class="mt-lg-4">
+            <p class="mb-lg-0 text-right">
+              Don't have an account?
+              <a routerLink="/signup">Sign Up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

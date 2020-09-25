@@ -1,0 +1,78 @@
+/* Museo Font */
+@font-face {
+  font-family: 'Museo', sans-serif;
+  src: url('../../assets/fonts/museo/Museo-700.otf');
+}
+
+/* Sider */
+nz-sider {
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: inline-block;
+}
+
+.logo {
+  height: 28px;
+  margin: 16px;
+  font-family: 'Museo', sans-serif;
+  letter-spacing: 1px;
+  font-size: 19px;
+  color: #111;
+}
+.logo img {
+  width: 28px;
+  height: 28px;
+}
+
+.sider-menu {
+  border-right: 0px;
+  overflow: hidden;
+}
+.sider-menu li {
+  font-size: 12px;
+}
+
+.sider-upgrade {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+.sider-upgrade-box {
+  position: relative;
+  border-radius: 5px;
+  background-color: #e7f1ff;
+}
+.sider-upgrade-box .sider-upgrade-box-image {
+  width: 72px;
+  height: 72px;
+  position: absolute;
+  margin: 0px auto;
+  left: 0px;
+  right: 0px;
+  top: -36px;
+}
+.sider-upgrade-box .sider-upgrade-box-image img {
+  max-width: 100%;
+}
+.sider-upgrade-box span {
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 300;
+}
+.sider-upgrade-box button {
+  font-size: 11px;
+  height: 32px;
+}
+
+
+/* Responsive */
+@media (max-width: 575.98px) {
+  nz-sider {
+    z-index: 1000;
+  }
+  .sider-upgrade {
+    display: none;
+  }
+}

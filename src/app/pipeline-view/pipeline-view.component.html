@@ -1,0 +1,105 @@
+<!-- Pipeline View -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row>
+          <div nz-col nzSpan="24" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs mb-lg-5">
+              <nz-breadcrumb-item>
+                <a routerLink="/pipelines">Your Pipelines</a>
+              </nz-breadcrumb-item>
+              <nz-breadcrumb-item>{{ pipeline.title }}</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+        </div>
+
+        <!-- Pipelines -->
+        <div class="pipelines-row pb-lg-4">
+          <div class="pipeline-board mr-lg-3">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-yellow mr-lg-2"></div>Prospecting</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of prospectingContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+          <div class="pipeline-board mr-lg-3">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-orange mr-lg-2"></div>Securing Lead</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of securingLeadContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+          <div class="pipeline-board mr-lg-3">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-red mr-lg-2"></div>Pitching Solution</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of pitchingSolutionContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+          <div class="pipeline-board mr-lg-3">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-purple mr-lg-2"></div>Qualifying Deals</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of qualifyingDealsContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+          <div class="pipeline-board mr-lg-3">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-blue mr-lg-2"></div>Sending Proposal</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of sendingProposalContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+          <div class="pipeline-board mr-lg-3">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-cyan mr-lg-2"></div>Deal Negotiation</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of dealNegotiationContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+          <div class="pipeline-board">
+            <div class="pipeline-board-header mb-lg-2">
+              <span nz-typography><div class="bg-green mr-lg-2"></div>Closure</span>
+            </div>
+            <div class="pipeline-board-body">
+              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of closureContacts">
+                {{ getContact(contactId).fullName }}
+              </nz-card>
+              <div class="pipeline-board-contact-placeholder"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

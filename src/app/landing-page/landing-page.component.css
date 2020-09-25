@@ -1,0 +1,109 @@
+/* Header */
+.header {
+  height: 100vh;
+}
+.header .container, .header .container .row {
+  height: 100%;
+}
+.header .badge {
+  padding: 14px 48px;
+  font-size: 10px;
+  font-weight: 400;
+  border-radius: 24px;
+  background-color: var(--primary-light-color) !important;
+  color: var(--primary-color);
+}
+.header h1 {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+  font-size: 36px;
+  line-height: 56px;
+  font-weight: 600;
+}
+.header p {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+  font-size: 16px;
+  line-height: 36px;
+  font-weight: 300;
+}
+.header .btn {
+  padding: 18px 34px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+}
+.header .header-image img {
+  max-width: 100%;
+}
+
+/* Section */
+.section h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+  font-size: 32px;
+  line-height: 52px;
+  font-weight: 600;
+}
+.section.section-background {
+  background-color: var(--primary-light-color);
+}
+.section .section-image img {
+  max-width: 100%;
+}
+.section .badge {
+  padding: 14px 48px;
+  font-size: 10px;
+  font-weight: 400;
+  border-radius: 24px;
+  background-color: #cbeaff !important;
+  color: var(--primary-color);
+}
+.section p {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+  font-size: 16px;
+  line-height: 34px;
+  font-weight: 300;
+}
+.section .btn {
+  padding: 18px 34px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+/* Features */
+.features .feature-box {
+  background-color: #fff;
+  border-radius: 8px;
+  transition: all ease 0.3s;
+}
+.features .feature-box:hover {
+  box-shadow: 0px 0px 10px #eee;
+  transition: all ease 0.3s;
+}
+.features .feature-box .feature-box-icon {
+  width: 82px;
+  height: 82px;
+  background-color: var(--primary-light-color);
+  border-radius: 6px;
+}
+.features .feature-box .feature-box-icon span {
+  color: var(--primary-color);
+  font-size: 48px;
+}
+.features .feature-box h4 {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+}
+.features .feature-box p {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+  font-size: 14px;
+  line-height: 26px;
+  font-weight: 300;
+}

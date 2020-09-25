@@ -1,0 +1,65 @@
+<!-- Pipelines -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-4 mb-3">
+          <div nz-col nzSpan="16" nzXs="8" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>Your Pipelines</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+          <div nz-col nzSpan="8" nzXs="16" class="text-right">
+            <a routerLink="/pipelines/add">
+              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i><div class="d-lg-inline-block d-none">Add Pipeline</div></button>
+            </a>
+          </div>
+        </div>
+
+
+        <nz-row [nzGutter]="30">
+
+          <nz-col [nzSpan]="6" nzXs="24" nzLg="6" class="mb-3 mb-lg-4" *ngFor="let pipeline of pipelines">
+            <nz-card [nzBordered]="false" [nzActions]="[actionView, actionMore]" class="luxx-card text-left">
+              <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="descriptionTemplate"></nz-card-meta>
+            </nz-card>
+            <ng-template #titleTemplate class="mb-lg-0">
+              <a routerLink="/pipeline/{{ pipeline._id }}">
+                <h4 nz-typography class="luxx-card-title mb-lg-0">{{ pipeline.title }}</h4>
+              </a>
+            </ng-template>
+            <ng-template #descriptionTemplate>
+              <a routerLink="/pipeline/{{ pipeline._id }}">
+                <span nz-typography class="luxx-card-text d-block">Value: $ 59.000</span>
+              </a>
+            </ng-template>
+            <ng-template #actionView>
+              <a routerLink="/pipeline/{{ pipeline._id }}">
+                <i nz-icon nzType="eye"></i>
+              </a>
+            </ng-template>
+            <ng-template #actionMore>
+              <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="topLeft">
+                <i nz-icon nzType="ellipsis"></i>
+              </a>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu class="luxx-dropdown-menu">
+                  <a routerLink="/pipeline/edit/{{ pipeline._id }}">
+                    <li nz-menu-item><i nz-icon nzType="edit"></i> Edit</li>
+                  </a>
+                  <li nz-menu-item (click)="deletePipeline(pipeline._id)"><i nz-icon nzType="delete"></i> Delete</li>
+                </ul>
+              </nz-dropdown-menu>
+            </ng-template>
+          </nz-col>
+
+        </nz-row>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

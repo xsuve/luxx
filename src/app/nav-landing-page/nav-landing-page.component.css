@@ -1,0 +1,38 @@
+/* Museo Font */
+@font-face {
+  font-family: 'Museo', sans-serif;
+  src: url('../../assets/fonts/museo/Museo-700.otf');
+}
+
+/* Nav */
+.navbar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.navbar .navbar-brand {
+  font-family: 'Museo', sans-serif;
+  letter-spacing: 1px;
+  font-size: 21px;
+  color: #111;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding-right: 24px;
+  padding-left: 24px;
+  color: #111;
+}
+.nav-link-badge {
+  vertical-align: middle;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 9px;
+  font-weight: 400;
+}
+.nav-btn {
+  padding: 10px 22px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+}

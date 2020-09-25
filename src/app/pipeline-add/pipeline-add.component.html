@@ -1,0 +1,69 @@
+<!-- Add Pipeline -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-5">
+          <div nz-col nzSpan="24" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>
+                <a routerLink="/pipelines">Your Pipelines</a>
+              </nz-breadcrumb-item>
+              <nz-breadcrumb-item>Add Pipeline</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+        </div>
+
+        <form nz-form [formGroup]="addPipelineForm" (ngSubmit)="submitAddPipeline(addPipelineForm.value)">
+
+          <div nz-row nzGutter="30" class="mt-lg-5">
+            <div nz-col nzSpan="12">
+
+              <!-- Pipeline Info -->
+              <nz-form-item class="luxx-input">
+                <nz-form-label nzFor="pipelineTitle">Title</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="pipelineTitleErrors">
+                  <input nz-input placeholder="Pipeline title" formControlName="title" id="pipelineTitle" required>
+                  <ng-template #pipelineTitleErrors let-control>
+                    <div *ngFor="let validation of validation_messages.title">
+                      <div *ngIf="addPipelineForm.get('title').hasError(validation.type) && (addPipelineForm.get('title').dirty || addPipelineForm.get('title').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                    </div>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="luxx-input luxx-select-multiple">
+                <nz-form-label nzFor="pipelineContacts">Contacts</nz-form-label>
+                <nz-form-control nzHasFeedback [nzErrorTip]="pipelineContactsErrors">
+                  <nz-select nzShowSearch nzAllowClear nzMode="multiple" [nzMaxTagPlaceholder]="contactsMaxTemplate" [nzMaxTagCount]="2" nzPlaceHolder="Select pipeline contacts" formControlName="contacts" id="pipelineContacts">
+                    <nz-option [nzLabel]="contact.fullName" [nzValue]="contact._id" *ngFor="let contact of contacts"></nz-option>
+                  </nz-select>
+                  <ng-template #contactsMaxTemplate let-selectedList>+{{ selectedList.length }} contacts</ng-template>
+                  <ng-template #pipelineContactsErrors let-control>
+                    <div *ngFor="let validation of validation_messages.contacts">
+                      <div *ngIf="addPipelineForm.get('contacts').hasError(validation.type) && (addPipelineForm.get('contacts').dirty || addPipelineForm.get('industry').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+                    </div>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+
+            </div>
+          </div>
+
+          <nz-divider></nz-divider>
+
+          <div nz-row nzGutter="30">
+            <div nz-col nzSpan="24" class="text-right">
+              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addPipelineForm.valid"><i nz-icon nzType="plus"></i>Submit Add Pipeline</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

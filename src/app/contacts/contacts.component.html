@@ -1,0 +1,180 @@
+<!-- Contacts -->
+
+<nz-layout class="layout">
+  <app-sider></app-sider>
+  <nz-layout class="right-layout">
+    <app-nav></app-nav>
+    <nz-content>
+      <div class="inner-content">
+
+        <div nz-row class="mb-lg-4 mb-3">
+          <div nz-col nzSpan="16" nzXs="8" class="mt-lg-3">
+            <nz-breadcrumb class="inner-content-breadcrumbs">
+              <nz-breadcrumb-item>Your Contacts</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+          <div nz-col nzSpan="8" nzXs="16" class="text-right">
+            <button nz-button nzType="default" class="luxx-btn mr-lg-4 mr-3" (click)="toggleFilters()"><i nz-icon nzType="filter"></i><div class="d-lg-inline-block d-none">Filter</div></button>
+            <a routerLink="/contacts/add">
+              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i><div class="d-lg-inline-block d-none">Add Contact</div></button>
+            </a>
+          </div>
+        </div>
+
+
+        <nz-row [nzGutter]="30">
+
+          <nz-col [nzSpan]="6" nzXs="24" nzLg="6" class="mb-3 mb-lg-4" *ngFor="let contact of filteredContacts | searchContacts: query">
+            <nz-card [nzBordered]="false" [nzActions]="[actionView, actionNewInvoice, actionMore]" class="luxx-card text-center">
+              <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="descriptionTemplate"></nz-card-meta>
+            </nz-card>
+            <ng-template #titleTemplate class="mb-lg-0">
+              <a routerLink="/contact/{{ contact._id }}">
+                <nz-badge [nzCount]="contact.companyId ? contactCompanyTemplate : ''">
+                  <nz-avatar [nzSize]="64" [nzText]="utilsService.formatInitials(contact.fullName)" class="luxx-card-avatar mb-lg-4 mb-3" [ngClass]="utilsService.contactStageColor(contact.stage)"></nz-avatar>
+                </nz-badge>
+                <ng-template #contactCompanyTemplate>
+                  <div class="luxx-card-avatar-badge">
+                    <img src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/092015/google_new_logo_fav_icon.png?itok=JLjdBZEh">
+                  </div>
+                </ng-template>
+                <h4 nz-typography class="luxx-card-title mb-lg-0">{{ contact.fullName }}</h4>
+              </a>
+            </ng-template>
+            <ng-template #descriptionTemplate>
+              <a routerLink="/contact/{{ contact._id }}">
+                <span nz-typography class="luxx-card-text d-block" *ngIf="contact.companyId">{{ contact.companyPosition }} @ {{ getCompany(contact.companyId).name }}</span>
+                <span nz-typography class="luxx-card-text d-block" *ngIf="!contact.companyId">kalembruce@email.com</span>
+                <nz-tag class="luxx-card-tag mt-lg-4 mt-3" [ngClass]="utilsService.contactStageColor(contact.stage)">{{ utilsService.contactStageName(contact.stage) }}</nz-tag>
+              </a>
+            </ng-template>
+            <ng-template #actionView>
+              <a routerLink="/contact/{{ contact._id }}">
+                <i nz-icon nzType="eye"></i>
+              </a>
+            </ng-template>
+            <ng-template #actionNewInvoice>
+              <i nz-icon nzType="file-text"></i>
+            </ng-template>
+            <ng-template #actionMore>
+              <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="topLeft">
+                <i nz-icon nzType="ellipsis"></i>
+              </a>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu class="luxx-dropdown-menu">
+                  <li nz-menu-item (click)="addTask(contact)"><i nz-icon nzType="unordered-list"></i> New Task</li>
+                  <li nz-menu-item><i nz-icon nzType="align-left"></i> New Note</li>
+                  <li nz-menu-item><i nz-icon nzType="file-text"></i> New Invoice</li>
+                  <a routerLink="/contact/edit/{{ contact._id }}">
+                    <li nz-menu-item><i nz-icon nzType="edit"></i> Edit</li>
+                  </a>
+                  <li nz-menu-item (click)="deleteContact(contact._id)"><i nz-icon nzType="delete"></i> Delete</li>
+                </ul>
+              </nz-dropdown-menu>
+            </ng-template>
+          </nz-col>
+
+        </nz-row>
+
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+
+<!-- Filters -->
+<nz-drawer [nzMask]="false" [nzVisible]="filtersToggled" nzPlacement="right" nzTitle="Filters" (nzOnClose)="toggleFilters()">
+  <div class="luxx-filters-content">
+    <div class="mb-lg-5 mb-4">
+      <p class="mb-lg-2 mb-2">SEARCH</p>
+      <div class="luxx-input">
+        <input nz-input placeholder="Search by name" [(ngModel)]="query">
+      </div>
+    </div>
+    <div class="mb-lg-5 mb-4">
+      <p class="mb-lg-2 mb-2">STAGE</p>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Prospecting</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Securing Lead</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Pitching Solution</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Qualifying Deals</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Sending Proposal</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Deal Negotiation</label>
+      <br>
+      <label nz-checkbox class="luxx-checkbox">Closure</label>
+    </div>
+    <div class="mb-lg-5 mb-4">
+      <p class="mb-lg-2 mb-2">COMPANY</p>
+      <div *ngFor="let company of companies">
+        <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ company.name }}</label>
+        <br>
+      </div>
+    </div>
+  </div>
+</nz-drawer>
+
+<!-- Add Task -->
+<ng-template #addTaskTemplate let-data let-drawerRef="drawerRef">
+  <form nz-form [formGroup]="addTaskForm" (ngSubmit)="submitAddTask(addTaskForm.value, data?.value._id)">
+    <nz-form-item class="luxx-input">
+      <nz-form-label nzFor="taskTitle">Title</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="taskTitleErrors">
+        <input nz-input placeholder="Task title" formControlName="title" id="taskTitle">
+        <ng-template #taskTitleErrors let-control>
+          <div *ngFor="let validation of validation_messages.title">
+            <div *ngIf="addTaskForm.get('title').hasError(validation.type) && (addTaskForm.get('title').dirty || addTaskForm.get('title').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+          </div>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="luxx-input">
+      <nz-form-label nzFor="taskNotes">Notes</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="taskNotesErrors">
+        <textarea nz-input placeholder="Task notes" formControlName="notes" [nzAutosize]="{ minRows: 3, maxRows: 5 }" id="taskNotes"></textarea>
+        <ng-template #taskNotesErrors let-control>
+          <div *ngFor="let validation of validation_messages.notes">
+            <div *ngIf="addTaskForm.get('notes').hasError(validation.type) && (addTaskForm.get('notes').dirty || addTaskForm.get('notes').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+          </div>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row nzGutter="30">
+      <div nz-col nzSpan="12">
+        <nz-form-item class="luxx-input">
+          <nz-form-label nzFor="taskDeadline">Deadline</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="taskDeadlineErrors">
+            <nz-date-picker formControlName="deadline" id="taskDeadline"></nz-date-picker>
+            <ng-template #taskDeadlineErrors let-control>
+              <div *ngFor="let validation of validation_messages.deadline">
+                <div *ngIf="addTaskForm.get('deadline').hasError(validation.type) && (addTaskForm.get('deadline').dirty || addTaskForm.get('deadline').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item class="luxx-input">
+          <nz-form-label nzFor="taskType">Type</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="taskTypeErrors">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select task type" formControlName="type" id="taskType" required>
+              <nz-option nzLabel="To-do" nzValue="todo"></nz-option>
+              <nz-option nzLabel="Call" nzValue="call"></nz-option>
+            </nz-select>
+            <ng-template #taskTypeErrors let-control>
+              <div *ngFor="let validation of validation_messages.type">
+                <div *ngIf="addTaskForm.get('type').hasError(validation.type) && (addTaskForm.get('type').dirty || addTaskForm.get('type').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24" class="text-right">
+        <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addTaskForm.valid"><i nz-icon nzType="plus"></i>Submit Add Task</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
