@@ -1,1 +1,697 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global */
+
+/* Root */
+:root {
+  --primary-color: #1479ff;
+  --primary-light-color: #e6f5ff;
+  --themed-black: #193b68;
+
+  --luxx-red-light: #fff1f0;
+  --luxx-red: #f5222d;
+  --luxx-orange-light: #fff7e6;
+  --luxx-orange: #fa8c16;
+  --luxx-gold-light: #fffbe6;
+  --luxx-gold: #faad14;
+  --luxx-yellow-light: #feffe6;
+  --luxx-yellow: #fadb14;
+  --luxx-lime-light: #fcffe6;
+  --luxx-lime: #a0d911;
+  --luxx-green-light: #f6ffed;
+  --luxx-green: #52c41a;
+  --luxx-cyan-light: #e6fffb;
+  --luxx-cyan: #13c2c2;
+  --luxx-blue-light: #e6f7ff;
+  --luxx-blue: #1890ff;
+  --luxx-purple-light: #f9f0ff;
+  --luxx-purple: #722ed1;
+  --luxx-magenta-light: #fff0f6;
+  --luxx-magenta: #eb2f96;
+  --luxx-gray-light: #f0f0f0;
+  --luxx-gray: #bfbfbf;
+
+  --fc-today-bg-color: #e6f5ff;
+  --fc-border-color: #f1f2f6;
+  --fc-neutral-bg-color: #f1f2f6;
+}
+
+/* General */
+.vm {
+  position: relative;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+}
+svg {
+  vertical-align: initial;
+}
+
+/* Layout */
+.layout {
+  min-height: 100vh;
+}
+.ant-affix {
+  height: calc(100vh - 64px - 60px);
+}
+.right-layout {
+  margin-left: 200px;
+}
+nz-content {
+  margin-top: 64px;
+  overflow: initial;
+}
+.inner-content {
+  padding: 30px;
+}
+.inner-content-breadcrumbs {
+  font-size: 13px;
+}
+nz-footer {
+  text-align: center;
+}
+
+
+/* Colors */
+.bg-primary-light {
+  background-color: var(--primary-light-color);
+}
+.bg-primary {
+  background-color: var(--primary-color);
+}
+.text-primary {
+  color: var(--primary-color);
+}
+.bg-red-light {
+  background-color: var(--luxx-red-light);
+}
+.bg-red {
+  background-color: var(--luxx-red);
+}
+.text-red {
+  color: var(--luxx-red);
+}
+.bg-orange-light {
+  background-color: var(--luxx-orange-light);
+}
+.bg-orange {
+  background-color: var(--luxx-orange);
+}
+.text-orange {
+  color: var(--luxx-orange);
+}
+.bg-gold-light {
+  background-color: var(--luxx-gold-light);
+}
+.bg-gold {
+  background-color: var(--luxx-gold);
+}
+.text-gold {
+  color: var(--luxx-gold);
+}
+.bg-yellow-light {
+  background-color: var(--luxx-yellow-light);
+}
+.bg-yellow {
+  background-color: var(--luxx-yellow);
+}
+.text-yellow {
+  color: var(--luxx-yellow);
+}
+.bg-lime-light {
+  background-color: var(--luxx-lime-light);
+}
+.bg-lime {
+  background-color: var(--luxx-lime);
+}
+.text-lime {
+  color: var(--luxx-lime);
+}
+.bg-green-light {
+  background-color: var(--luxx-green-light);
+}
+.bg-green {
+  background-color: var(--luxx-green);
+}
+.text-green {
+  color: var(--luxx-green);
+}
+.bg-cyan-light {
+  background-color: var(--luxx-cyan-light);
+}
+.bg-cyan {
+  background-color: var(--luxx-cyan);
+}
+.text-cyan {
+  color: var(--luxx-cyan);
+}
+.bg-blue-light {
+  background-color: var(--luxx-blue-light);
+}
+.bg-blue {
+  background-color: var(--luxx-blue);
+}
+.text-blue {
+  color: var(--luxx-blue);
+}
+.bg-purple-light {
+  background-color: var(--luxx-purple-light);
+}
+.bg-purple {
+  background-color: var(--luxx-purple);
+}
+.text-purple {
+  color: var(--luxx-purple);
+}
+.bg-magenta-light {
+  background-color: var(--luxx-magenta-light);
+}
+.bg-magenta {
+  background-color: var(--luxx-magenta);
+}
+.text-magenta {
+  color: var(--luxx-magenta);
+}
+.bg-gray-light {
+  background-color: var(--luxx-gray-light);
+}
+.bg-gray {
+  background-color: var(--luxx-gray);
+}
+.text-gray {
+  color: var(--luxx-gray);
+}
+
+
+/* Buttons */
+.luxx-btn {
+  font-size: 12px;
+  height: 36px;
+}
+.luxx-btn i {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+
+/* Card */
+.luxx-card .ant-card-body {
+  padding: 30px;
+}
+.luxx-card .ant-card-actions {
+  border-top: 0px;
+}
+.luxx-card-avatar span {
+  font-size: 16px;
+  font-weight: 400;
+}
+.luxx-card-avatar-badge {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 2px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+}
+.luxx-card-avatar-badge img {
+  max-width: 100%;
+  vertical-align: top;
+}
+.luxx-card-title {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+.luxx-card-text {
+  font-size: 13px !important;
+  font-weight: 300 !important;
+}
+.luxx-card-tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0px 12px;
+  line-height: 26px;
+  border: 0px;
+}
+
+
+/* Dropdown */
+.luxx-dropdown-menu li {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+
+/* Steps */
+.luxx-steps .ant-steps-item-icon {
+  margin-right: 12px;
+}
+.luxx-steps .ant-steps-item-icon .ant-steps-icon {
+  font-size: 20px !important;
+}
+.luxx-steps .ant-steps-item-title {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+.luxx-steps .ant-steps-item-description {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+
+/* Avatar */
+.ant-avatar {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+/* Forms */
+nz-select {
+  width: 100%;
+}
+.luxx-input label {
+  font-size: 13px;
+  font-weight: 400;
+}
+.luxx-input nz-select, .luxx-input input, .luxx-input textarea, .luxx-input .ant-input-number {
+  font-size: 13px;
+  font-weight: 400;
+  height: 42px;
+}
+.ant-select-selection-selected-value .ant-badge-status-text {
+  font-size: 13px;
+  line-height: 14px;
+}
+.luxx-input.luxx-select-multiple .ant-select-selection__choice,
+.luxx-input.luxx-select-multiple .ant-select-search {
+  height: 30px;
+  margin-top: 5px;
+  line-height: 28px;
+}
+.luxx-input.luxx-select-multiple .ant-select-selection__clear,
+.luxx-input.luxx-select-multiple .ant-select-arrow {
+  top: 21px;
+}
+.luxx-input .ant-input-number, .luxx-input .ant-calendar-picker {
+  width: 100% !important;
+}
+.luxx-input .ant-select-selection--single, .luxx-input .ant-select-selection {
+  height: 42px !important;
+}
+.luxx-input .ant-select-selection__rendered {
+  line-height: 40px;
+}
+.ant-select-dropdown-menu .ant-select-dropdown-menu-item {
+  font-size: 13px;
+}
+.ant-select-dropdown-menu .ant-select-dropdown-menu-item-selected {
+  font-weight: 500;
+}
+.luxx-input-error {
+  font-size: 12px;
+  font-weight: 400;
+}
+.luxx-select-option-image {
+  width: 24px;
+  display: inline-block;
+}
+.luxx-select-option-image img {
+  max-width: 100%;
+}
+
+.luxx-checkbox {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+/* Tabs */
+.luxx-tabs .ant-tabs-tab {
+  font-size: 12px;
+}
+.luxx-tabs .ant-tabs-nav .ant-tabs-tab-active {
+  font-weight: 400;
+}
+.luxx-tabs .ant-tabs-tab .luxx-tab-badge .ant-badge-count {
+  font-size: 11px;
+}
+
+/* Popover */
+.ant-popover {
+  font-size: 12px;
+}
+
+
+/* Filters & Drawer */
+.ant-drawer-title {
+  font-weight: 400;
+}
+.luxx-filters-content p {
+  font-size: 12px;
+  color: rgba(25, 59, 104, 0.85);
+}
+
+
+/* Modals */
+.luxx-modal .ant-modal-confirm-body {
+  text-align: center;
+}
+.luxx-modal .ant-modal-confirm-body > .anticon {
+  float: none;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+.luxx-modal .ant-modal-confirm-btns {
+  float: none;
+  text-align: center;
+  margin-top: 30px;
+}
+.luxx-modal .ant-modal-confirm-title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.luxx-modal .ant-modal-confirm-content {
+  font-weight: 300;
+}
+.luxx-modal .ant-modal-confirm-btns .ant-btn {
+  font-size: 12px;
+  height: 36px;
+}
+
+
+/* Tasks */
+.luxx-task h6 {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(25, 59, 104, 0.85);
+}
+.luxx-task p {
+  font-size: 13px;
+  line-height: 23px;
+  font-weight: 300;
+}
+.luxx-task .luxx-task-checkbox .ant-checkbox-wrapper:hover .ant-checkbox-inner, .luxx-task .ant-checkbox:hover .ant-checkbox-inner, .luxx-task .ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: var(--luxx-lime);
+}
+.luxx-task .luxx-task-checkbox .ant-checkbox-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.luxx-task .luxx-task-checkbox .ant-checkbox-inner::after {
+  left: 28%;
+}
+.luxx-task .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--luxx-lime);
+  border-color: var(--luxx-lime);
+}
+.luxx-task .luxx-task-checkbox .ant-checkbox-checked::after {
+  border-radius: 50%;
+  border-color: var(--luxx-lime);
+}
+.luxx-task .luxx-task-deadline span {
+  font-size: 11px;
+}
+.luxx-task .luxx-task-deadline h5 {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+
+/* Notes */
+.luxx-note p {
+  font-size: 13px;
+  line-height: 23px;
+  font-weight: 300;
+}
+.luxx-note .luxx-note-actions a i {
+  vertical-align: top;
+}
+
+
+/* Invoices */
+.luxx-invoice h6 {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(25, 59, 104, 0.85);
+}
+.luxx-invoice p {
+  font-size: 13px;
+  line-height: 23px;
+  font-weight: 300;
+}
+.luxx-invoice .luxx-invoice-deadline span {
+  font-size: 11px;
+}
+.luxx-invoice .luxx-invoice-deadline h5 {
+  font-size: 18px;
+  font-weight: 300;
+}
+.luxx-invoice .ant-divider-horizontal {
+  margin: 15px 0px;
+}
+
+
+/* Descriptions */
+.luxx-descriptions .ant-descriptions-item-label {
+  font-size: 13px;
+}
+.luxx-descriptions .ant-descriptions-item-content {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+/* Messages */
+.ant-message {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+
+/* Alerts */
+.luxx-alert .ant-alert {
+  font-size: 13px;
+}
+
+
+/* Timeline */
+.luxx-timeline .luxx-timeline-item-title {
+  font-size: 13px;
+}
+
+
+/* Calendar */
+.luxx-calendar-header-title h4 {
+  font-size: 16px !important;
+  font-weight: 400;
+}
+.luxx-calendar-btn {
+  height: 32px;
+  width: 32px;
+}
+.luxx-calendar-select,
+.luxx-calendar-select .ant-select-selection {
+  height: 33px !important;
+}
+.luxx-calendar-select .ant-select-selection__rendered {
+  line-height: 32px !important;
+}
+.luxx-range-picker .ant-calendar-range-picker-separator {
+  vertical-align: middle !important;
+  padding-top: 5px;
+  padding-right: 15px;
+}
+.luxx-range-picker .ant-calendar-range-picker-input {
+  height: 100% !important;
+  text-align: left;
+}
+.luxx-range-picker .ant-calendar-picker-input {
+  height: 42px !important;
+}
+
+.luxx-calendar .fc-scroller .fc-col-header,
+.luxx-calendar .fc-scroller .fc-daygrid-body,
+.luxx-calendar .fc-scroller .fc-daygrid-body .fc-scrollgrid-sync-table,
+.luxx-calendar .fc-scroller .fc-timegrid-body,
+.luxx-calendar .fc-scroller .fc-timegrid-body .fc-timegrid-slots table,
+.luxx-calendar .fc-scroller .fc-timegrid-body .fc-timegrid-cols table {
+  width: 100% !important;
+}
+.luxx-calendar .fc-daygrid-day .fc-daygrid-day-frame .fc-daygrid-event-harness {
+  visibility: visible !important;
+}
+.luxx-calendar .fc-scrollgrid,
+.luxx-calendar .fc-col-header-cell {
+  border: 0px !important;
+}
+.luxx-calendar .fc-timegrid-axis {
+  border-bottom: 0px !important;
+  border-right: 0px !important;
+}
+.luxx-calendar .fc-scroller .fc-col-header {
+  background-color: #fbfbfc !important;
+}
+.luxx-calendar .fc-col-header-cell {
+  padding: 15px !important;
+}
+.luxx-calendar .fc-col-header-cell-cushion {
+  font-size: 13px !important;
+  color: rgba(25, 59, 104, 0.85) !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+}
+.luxx-calendar .fc-timegrid-slot-minor {
+  border: 0px !important;
+}
+.luxx-calendar .fc-scrollgrid-section-header td {
+  border-right: 0px !important;
+}
+.luxx-calendar .fc-scrollgrid-section-body td,
+.luxx-calendar .fc-timegrid-divider {
+  border-left: 1px solid var(--fc-border-color) !important;
+}
+.luxx-calendar .fc-timegrid-axis-cushion,
+.luxx-calendar .fc-timegrid-slot-label-cushion {
+  font-size: 12px !important;
+}
+.luxx-calendar .fc-daygrid-day-number {
+  color: rgba(25, 59, 104, 0.65) !important;
+  text-decoration: none !important;
+}
+
+.luxx-calendar .fc-v-event {
+  background-color: var(--luxx-blue-light) !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+  border-color: var(--luxx-blue) !important;
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+  border-right: 0px !important;
+}
+.luxx-calendar .fc-h-event {
+  background-color: var(--luxx-blue-light) !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+  border-color: var(--luxx-blue) !important;
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+  border-right: 0px !important;
+}
+.luxx-calendar .fc-v-event .fc-event-main,
+.luxx-calendar .fc-h-event .fc-event-main {
+  color: var(--luxx-blue) !important;
+}
+.luxx-calendar .fc-timegrid-event .fc-event-main,
+.luxx-calendar .fc-daygrid-event .fc-event-main {
+  padding: 5px !important;
+}
+.luxx-calendar .fc-daygrid-dot-event:hover {
+  background-color: transparent !important;
+}
+.luxx-calendar .fc-daygrid-dot-event .fc-daygrid-event-dot {
+  border-color: var(--luxx-blue) !important;
+  margin: 0px 6px !important;
+}
+.luxx-calendar .fc-daygrid-event .fc-event-time,
+.luxx-calendar .fc-daygrid-event .fc-event-title {
+  color: var(--luxx-blue) !important;
+  font-weight: 300 !important;
+}
+.luxx-calendar .fc-daygrid-event .fc-event-title {
+  font-weight: 400 !important;
+}
+
+.luxx-calendar .fc-v-event.meeting,
+.luxx-calendar .fc-h-event.meeting {
+  background-color: var(--luxx-red-light) !important;
+  border-color: var(--luxx-red) !important;
+}
+.luxx-calendar .fc-v-event.call,
+.luxx-calendar .fc-h-event.call {
+  background-color: var(--luxx-green-light) !important;
+  border-color: var(--luxx-green) !important;
+}
+.luxx-calendar .fc-v-event.reminder,
+.luxx-calendar .fc-h-event.reminder {
+  background-color: var(--luxx-orange-light) !important;
+  border-color: var(--luxx-orange) !important;
+}
+.luxx-calendar .fc-v-event.other,
+.luxx-calendar .fc-h-event.other {
+  background-color: var(--luxx-gray-light) !important;
+  border-color: var(--luxx-gray) !important;
+}
+.luxx-calendar .fc-daygrid-dot-event.meeting .fc-daygrid-event-dot {
+  border-color: var(--luxx-red) !important;
+}
+.luxx-calendar .fc-daygrid-dot-event.call .fc-daygrid-event-dot {
+  border-color: var(--luxx-green) !important;
+}
+.luxx-calendar .fc-daygrid-dot-event.reminder .fc-daygrid-event-dot {
+  border-color: var(--luxx-orange) !important;
+}
+.luxx-calendar .fc-daygrid-dot-event.other .fc-daygrid-event-dot {
+  border-color: var(--luxx-gray) !important;
+}
+.luxx-calendar .fc-v-event.meeting .fc-event-main,
+.luxx-calendar .fc-h-event.meeting .fc-event-main,
+.luxx-calendar .fc-daygrid-event.meeting .fc-event-time,
+.luxx-calendar .fc-daygrid-event.meeting .fc-event-title {
+  color: var(--luxx-red) !important;
+}
+.luxx-calendar .fc-v-event.call .fc-event-main,
+.luxx-calendar .fc-h-event.call .fc-event-main,
+.luxx-calendar .fc-daygrid-event.call .fc-event-time,
+.luxx-calendar .fc-daygrid-event.call .fc-event-title {
+  color: var(--luxx-green) !important;
+}
+.luxx-calendar .fc-v-event.reminder .fc-event-main,
+.luxx-calendar .fc-h-event.reminder .fc-event-main,
+.luxx-calendar .fc-daygrid-event.reminder .fc-event-time,
+.luxx-calendar .fc-daygrid-event.reminder .fc-event-title {
+  color: var(--luxx-orange) !important;
+}
+.luxx-calendar .fc-v-event.other .fc-event-main,
+.luxx-calendar .fc-h-event.other .fc-event-main,
+.luxx-calendar .fc-daygrid-event.other .fc-event-time,
+.luxx-calendar .fc-daygrid-event.other .fc-event-title {
+  color: var(--luxx-gray) !important;
+}
+
+
+
+
+
+/* Responsive */
+@media (max-width: 575.98px) {
+  .right-layout {
+    margin-left: 64px;
+  }
+  .inner-content {
+    padding: 30px 15px 15px 15px;
+  }
+
+  .luxx-btn {
+    height: 32px;
+    padding: 0px 10px;
+  }
+  .luxx-btn span {
+    margin-left: 0px !important;
+  }
+  .luxx-btn i {
+    font-size: 12px;
+  }
+}
