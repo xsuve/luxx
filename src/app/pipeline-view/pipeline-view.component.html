@@ -19,82 +19,166 @@
         </div>
 
         <!-- Pipelines -->
-        <div class="pipelines-row pb-lg-4">
+        <div class="pipelines-row pb-lg-4" cdkDropListGroup cdkScrollable>
           <div class="pipeline-board mr-lg-3">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-yellow mr-lg-2"></div>Prospecting</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-yellow mr-lg-2"></div>PROSPECTING</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of prospectingContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="prospectingContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of prospectingContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('prospecting')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
           <div class="pipeline-board mr-lg-3">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-orange mr-lg-2"></div>Securing Lead</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-orange mr-lg-2"></div>SECURING LEAD</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of securingLeadContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="securingLeadContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of securingLeadContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('securing-lead')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
           <div class="pipeline-board mr-lg-3">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-red mr-lg-2"></div>Pitching Solution</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-red mr-lg-2"></div>PITCHING SOLUTION</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of pitchingSolutionContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="pitchingSolutionContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of pitchingSolutionContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('pitching-solution')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
           <div class="pipeline-board mr-lg-3">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-purple mr-lg-2"></div>Qualifying Deals</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-purple mr-lg-2"></div>QUALIFYING DEALS</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of qualifyingDealsContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="qualifyingDealsContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of qualifyingDealsContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('qualifying-deals')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
           <div class="pipeline-board mr-lg-3">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-blue mr-lg-2"></div>Sending Proposal</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-blue mr-lg-2"></div>SENDING PROPOSAL</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of sendingProposalContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="sendingProposalContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of sendingProposalContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('sending-proposal')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
           <div class="pipeline-board mr-lg-3">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-cyan mr-lg-2"></div>Deal Negotiation</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-cyan mr-lg-2"></div>DEAL NEGOTIATION</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of dealNegotiationContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="dealNegotiationContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of dealNegotiationContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('deal-negotiation')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
           <div class="pipeline-board">
-            <div class="pipeline-board-header mb-lg-2">
-              <span nz-typography><div class="bg-green mr-lg-2"></div>Closure</span>
+            <div class="pipeline-board-header mb-lg-3">
+              <span nz-typography><div class="bg-green mr-lg-2"></div>CLOSURE</span>
             </div>
-            <div class="pipeline-board-body">
-              <nz-card [nzBordered]="false" class="mb-lg-3" *ngFor="let contactId of closureContacts">
-                {{ getContact(contactId).fullName }}
+            <div class="pipeline-board-body"
+              cdkDropList
+              [cdkDropListData]="closureContacts"
+              (cdkDropListDropped)="drop($event)">
+              <nz-card [nzBordered]="false" class="pipeline-board-contact mb-lg-3" *ngFor="let contactId of closureContacts" cdkDrag [cdkDragData]="contactId">
+                <nz-row [nzGutter]="30">
+                  <nz-col [nzSpan]="7">
+                    <nz-avatar [nzSize]="48" [nzText]="utilsService.formatInitials(getContact(contactId).fullName)" class="luxx-card-avatar" [ngClass]="utilsService.contactStageColor('closure')"></nz-avatar>
+                  </nz-col>
+                  <nz-col [nzSpan]="17">
+                    <h4 nz-typography class="luxx-card-title mb-lg-1">{{ getContact(contactId).fullName }}</h4>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="getContact(contactId).companyId">{{ getContact(contactId).companyPosition }} @ {{ getCompany(getContact(contactId).companyId).name }}</span>
+                    <span nz-typography class="luxx-card-text d-block" *ngIf="!getContact(contactId).companyId">{{ getContact(contactId).email }}</span>
+                  </nz-col>
+                </nz-row>
+                <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
               </nz-card>
-              <div class="pipeline-board-contact-placeholder"></div>
             </div>
           </div>
         </div>

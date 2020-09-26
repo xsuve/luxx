@@ -44,7 +44,7 @@
             <ng-template #descriptionTemplate>
               <a routerLink="/contact/{{ contact._id }}">
                 <span nz-typography class="luxx-card-text d-block" *ngIf="contact.companyId">{{ contact.companyPosition }} @ {{ getCompany(contact.companyId).name }}</span>
-                <span nz-typography class="luxx-card-text d-block" *ngIf="!contact.companyId">kalembruce@email.com</span>
+                <span nz-typography class="luxx-card-text d-block" *ngIf="!contact.companyId">{{ contact.email }}</span>
                 <nz-tag class="luxx-card-tag mt-lg-4 mt-3" [ngClass]="utilsService.contactStageColor(contact.stage)">{{ utilsService.contactStageName(contact.stage) }}</nz-tag>
               </a>
             </ng-template>

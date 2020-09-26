@@ -11,20 +11,42 @@
 }
 .pipelines-row .pipeline-board-header span {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: 0.7px;
 }
 .pipelines-row .pipeline-board-header span div {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   display: inline-block;
   vertical-align: middle;
   border-radius: 50%;
+  margin-bottom: 1px;
 }
 .pipelines-row .pipeline-board-body {
-  min-height: 70px;
+  min-height: 96px;
+  overflow: hidden;
 }
-.pipeline-board-contact-placeholder {
+.pipeline-board-placeholder {
   width: 100%;
-  height: 70px;
-  border: 1px dashed red;
+  height: 96px;
+  border: 1.5px dashed #ccc;
+}
+.pipeline-board-contact {
+  cursor: move;
+}
+.luxx-card-avatar span {
+  font-size: 14px !important;
+}
+.pipeline-board-contact .luxx-card-title {
+  font-size: 14px !important;
+}
+.pipeline-board-contact .luxx-card-text {
+  font-size: 12px !important;
+}
+
+.cdk-drag {
+  transition: transform 0s;
+}
+.cdk-drag-animating {
+  transition: transform 0.2s;
 }
