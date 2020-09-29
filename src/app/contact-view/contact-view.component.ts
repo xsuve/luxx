@@ -25,6 +25,9 @@ import { ContactService } from '../services/contact.service';
 import { Company } from '../models/company.model';
 import { CompanyService } from '../services/company.service';
 
+import { Pipeline } from '../models/pipeline.model';
+import { PipelineService } from '../services/pipeline.service';
+
 @Component({
   selector: 'app-contact-view',
   templateUrl: './contact-view.component.html',
@@ -35,6 +38,7 @@ export class ContactViewComponent implements OnInit {
   contact: Contact = new Contact();
   loggedInUser: User;
   companies: Company[] = [];
+  pipelines: Pipeline[] = [];
   tasks: Task[] = [];
   notes: Note[] = [];
   invoices: Invoice[] = [];
@@ -86,6 +90,7 @@ export class ContactViewComponent implements OnInit {
 
 
   drawerRef: any;
+  
 
   // Add Task
   @ViewChild('addTaskTemplate', { static: false }) addTaskTemplate?: TemplateRef<{
@@ -213,7 +218,8 @@ export class ContactViewComponent implements OnInit {
     private route: ActivatedRoute,
     private contactService: ContactService,
     private userService: UserService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private pipelineService: PipelineService
   ) {
     this.route.params.subscribe(params => {
       this.contactService.getContact(params['id']).subscribe(res => {
@@ -232,8 +238,14 @@ export class ContactViewComponent implements OnInit {
 
     this.loggedInUser = this.userService.getLoggedInUser();
 
+    // Companies
     this.companyService.getCompanies(this.loggedInUser._id).subscribe(res => {
       this.companies = res;
+    });
+
+    // Pipelines
+    this.pipelineService.getPipelines(this.loggedInUser._id).subscribe(res => {
+      this.pipelines = res;
     });
 
     // Add Task Form

@@ -16,6 +16,9 @@ import { ContactService } from '../services/contact.service';
 import { Company } from '../models/company.model';
 import { CompanyService } from '../services/company.service';
 
+import { PipelineContact, Pipeline } from '../models/pipeline.model';
+import { PipelineService } from '../services/pipeline.service';
+
 import { SearchContactsPipe } from '../pipes/search-contacts.pipe';
 
 @Component({
@@ -28,9 +31,13 @@ export class ContactsComponent implements OnInit {
   loggedInUser: User;
   companies: Company[] = [];
   contacts: Contact[] = [];
+  pipelines: Pipeline[] = [];
 
   query: string = '';
   filteredContacts: Contact[] = [];
+
+  drawerRef: any;
+
 
   // Add Task
   @ViewChild('addTaskTemplate', { static: false }) addTaskTemplate?: TemplateRef<{
@@ -39,7 +46,7 @@ export class ContactsComponent implements OnInit {
   }>;
   // Add Task Form
   addTaskForm: FormGroup;
-  validation_messages = {
+  add_task_validation_messages = {
     'title': [
       { type: 'required', message: 'The title is required.' }
     ],
@@ -51,6 +58,19 @@ export class ContactsComponent implements OnInit {
     ]
   };
 
+  // Add to Pipeline
+  @ViewChild('addToPipelineTemplate', { static: false }) addToPipelineTemplate?: TemplateRef<{
+    $implicit: { value: any };
+    drawerRef: NzDrawerRef<string>;
+  }>;
+  // Add to Pipeline Form
+  addToPipelineForm: FormGroup;
+  add_pipeline_validation_messages = {
+    'pipeline': [
+      { type: 'required', message: 'The pipeline is required.' }
+    ]
+  };
+
   constructor(
     private utilsService: UtilsService,
     private modalService: NzModalService,
@@ -59,7 +79,8 @@ export class ContactsComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private contactService: ContactService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private pipelineService: PipelineService
   ) {
     this.loggedInUser = this.userService.getLoggedInUser();
 
@@ -68,12 +89,23 @@ export class ContactsComponent implements OnInit {
       this.companies = res;
     });
 
+    // Pipelines
+    this.pipelineService.getPipelines(this.loggedInUser._id).subscribe(res => {
+      this.pipelines = res;
+    });
+
     // Add Task Form
     this.addTaskForm = this.fb.group({
       title: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
       type: [null, [Validators.required]],
       notes: ['']
+    });
+
+    // Add to Pipeline Form
+    this.addToPipelineForm = this.fb.group({
+      pipeline: [null, [Validators.required]],
+      value: [0]
     });
   }
 
@@ -88,6 +120,18 @@ export class ContactsComponent implements OnInit {
       this.contacts = res;
       this.filteredContacts = res;
     });
+  }
+
+  // Can Add to Pipeline
+  canAddToPipeline(id) {
+    for(let pipeline of this.pipelines) {
+      for(let contact of pipeline.contacts) {
+        if(contact.contactId == id) {
+          return false;
+        }
+      }
+      return true;
+    }
   }
 
   // Get Company
@@ -172,6 +216,51 @@ export class ContactsComponent implements OnInit {
           }
         });
       }
+    });
+  }
+
+  // Add to Pipeline
+  addToPipeline(contact) {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: 'Add Contact to Pipeline',
+      nzClosable: false,
+      nzWidth: 384,
+      nzContent: this.addToPipelineTemplate,
+      nzContentParams: {
+        value: contact
+      }
+    });
+  }
+
+  // Get Pipeline
+  getPipeline(id) {
+    for(let pipeline of this.pipelines) {
+      if(pipeline._id == id) {
+        return pipeline;
+      }
+    }
+  }
+
+  // Submit Add to Pipeline
+  submitAddToPipeline(value, contactId) {
+    let pipeline = this.getPipeline(value.pipeline);
+    let pipelineContacts: any[] = this.getPipeline(value.pipeline).contacts;
+    pipelineContacts.push({
+      contactId: contactId,
+      value: value.value
+    });
+
+    this.pipelineService.updatePipeline(value.pipeline, {
+      title: pipeline.title,
+      contacts: pipelineContacts
+    }).subscribe(res => {
+      this.drawerRef.close(this.addToPipelineTemplate);
+
+      // Reset Fields
+      this.addToPipelineForm = this.fb.group({
+        pipeline: new FormControl(null, [Validators.required]),
+        value: new FormControl(0)
+      });
     });
   }
 

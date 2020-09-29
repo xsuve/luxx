@@ -35,20 +35,6 @@
                   </ng-template>
                 </nz-form-control>
               </nz-form-item>
-              <nz-form-item class="luxx-input luxx-select-multiple">
-                <nz-form-label nzFor="pipelineContacts">Contacts</nz-form-label>
-                <nz-form-control nzHasFeedback [nzErrorTip]="pipelineContactsErrors">
-                  <nz-select nzShowSearch nzAllowClear nzMode="multiple" [nzMaxTagPlaceholder]="contactsMaxTemplate" [nzMaxTagCount]="2" nzPlaceHolder="Select pipeline contacts" formControlName="contacts" id="pipelineContacts">
-                    <nz-option [nzLabel]="contact.fullName" [nzValue]="contact._id" *ngFor="let contact of contacts"></nz-option>
-                  </nz-select>
-                  <ng-template #contactsMaxTemplate let-selectedList>+{{ selectedList.length }} contacts</ng-template>
-                  <ng-template #pipelineContactsErrors let-control>
-                    <div *ngFor="let validation of validation_messages.contacts">
-                      <div *ngIf="addPipelineForm.get('contacts').hasError(validation.type) && (addPipelineForm.get('contacts').dirty || addPipelineForm.get('industry').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
-                    </div>
-                  </ng-template>
-                </nz-form-control>
-              </nz-form-item>
 
             </div>
           </div>

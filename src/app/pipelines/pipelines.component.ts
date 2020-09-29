@@ -5,7 +5,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
-import { Pipeline } from '../models/pipeline.model';
+import { PipelineContact, Pipeline } from '../models/pipeline.model';
 import { PipelineService } from '../services/pipeline.service';
 
 @Component({
@@ -32,6 +32,12 @@ export class PipelinesComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  // Get Pipeline Value
+  getPipelineValue(pipelineContacts) {
+    let sum = pipelineContacts.map(item => item.value).reduce((prev, curr) => prev + curr, 0);
+    return sum;
   }
 
   // Fetch Pipelines

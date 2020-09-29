@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
 import { Contact } from '../models/contact.model';
 import { ContactService } from '../services/contact.service';
 
-import { Pipeline } from '../models/pipeline.model';
+import { PipelineContact, Pipeline } from '../models/pipeline.model';
 import { PipelineService } from '../services/pipeline.service';
 
 @Component({
@@ -48,8 +48,7 @@ export class PipelineAddComponent implements OnInit {
 
   ngOnInit() {
     this.addPipelineForm = this.fb.group({
-      title: ['', [Validators.required]],
-      contacts: [null, [Validators.required]]
+      title: ['', [Validators.required]]
     });
   }
 
@@ -58,12 +57,11 @@ export class PipelineAddComponent implements OnInit {
     this.pipelineService.createPipeline({
       userId: this.loggedInUser._id,
       title: value.title,
-      contacts: value.contacts
+      contacts: new Array<PipelineContact>()
     }).subscribe(res => {
       // Reset Fields
       this.addPipelineForm = this.fb.group({
-        title: new FormControl('', [Validators.required]),
-        contacts: new FormControl(null, [Validators.required])
+        title: new FormControl('', [Validators.required])
       });
 
       this.router.navigate(['/pipelines']);

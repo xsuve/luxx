@@ -9,10 +9,15 @@
   display: inline-block;
   vertical-align: top;
 }
+.pipelines-row .pipeline-board .pipeline-board-body {
+  background-color: #e8ebf0;
+}
 .pipelines-row .pipeline-board-header span {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.7px;
+  vertical-align: top;
+  line-height: 12px;
 }
 .pipelines-row .pipeline-board-header span div {
   width: 8px;
@@ -29,13 +34,10 @@
 .pipeline-board-placeholder {
   width: 100%;
   height: 96px;
-  border: 1.5px dashed #ccc;
+  background-color: #f0f2f5;
 }
 .pipeline-board-contact {
   cursor: move;
-}
-.luxx-card-avatar span {
-  font-size: 14px !important;
 }
 .pipeline-board-contact .luxx-card-title {
   font-size: 14px !important;

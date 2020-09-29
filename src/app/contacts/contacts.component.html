@@ -62,6 +62,7 @@
               </a>
               <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu class="luxx-dropdown-menu">
+                  <li nz-menu-item (click)="addToPipeline(contact)" *ngIf="pipelines.length > 0 && canAddToPipeline(contact._id)"><i nz-icon nzType="filter"></i> Add to Pipeline</li>
                   <li nz-menu-item (click)="addTask(contact)"><i nz-icon nzType="unordered-list"></i> New Task</li>
                   <li nz-menu-item><i nz-icon nzType="align-left"></i> New Note</li>
                   <li nz-menu-item><i nz-icon nzType="file-text"></i> New Invoice</li>
@@ -125,8 +126,8 @@
       <nz-form-control nzHasFeedback [nzErrorTip]="taskTitleErrors">
         <input nz-input placeholder="Task title" formControlName="title" id="taskTitle">
         <ng-template #taskTitleErrors let-control>
-          <div *ngFor="let validation of validation_messages.title">
-            <div *ngIf="addTaskForm.get('title').hasError(validation.type) && (addTaskForm.get('title').dirty || addTaskForm.get('title').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+          <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.title">
+            <div *ngIf="addTaskForm.get('title').hasError(add_task_validation_messages.type) && (addTaskForm.get('title').dirty || addTaskForm.get('title').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
           </div>
         </ng-template>
       </nz-form-control>
@@ -136,8 +137,8 @@
       <nz-form-control nzHasFeedback [nzErrorTip]="taskNotesErrors">
         <textarea nz-input placeholder="Task notes" formControlName="notes" [nzAutosize]="{ minRows: 3, maxRows: 5 }" id="taskNotes"></textarea>
         <ng-template #taskNotesErrors let-control>
-          <div *ngFor="let validation of validation_messages.notes">
-            <div *ngIf="addTaskForm.get('notes').hasError(validation.type) && (addTaskForm.get('notes').dirty || addTaskForm.get('notes').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+          <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.notes">
+            <div *ngIf="addTaskForm.get('notes').hasError(add_task_validation_messages.type) && (addTaskForm.get('notes').dirty || addTaskForm.get('notes').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
           </div>
         </ng-template>
       </nz-form-control>
@@ -149,8 +150,8 @@
           <nz-form-control nzHasFeedback [nzErrorTip]="taskDeadlineErrors">
             <nz-date-picker formControlName="deadline" id="taskDeadline"></nz-date-picker>
             <ng-template #taskDeadlineErrors let-control>
-              <div *ngFor="let validation of validation_messages.deadline">
-                <div *ngIf="addTaskForm.get('deadline').hasError(validation.type) && (addTaskForm.get('deadline').dirty || addTaskForm.get('deadline').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+              <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.deadline">
+                <div *ngIf="addTaskForm.get('deadline').hasError(add_task_validation_messages.type) && (addTaskForm.get('deadline').dirty || addTaskForm.get('deadline').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
               </div>
             </ng-template>
           </nz-form-control>
@@ -165,16 +166,59 @@
               <nz-option nzLabel="Call" nzValue="call"></nz-option>
             </nz-select>
             <ng-template #taskTypeErrors let-control>
-              <div *ngFor="let validation of validation_messages.type">
-                <div *ngIf="addTaskForm.get('type').hasError(validation.type) && (addTaskForm.get('type').dirty || addTaskForm.get('type').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
+              <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.type">
+                <div *ngIf="addTaskForm.get('type').hasError(add_task_validation_messages.type) && (addTaskForm.get('type').dirty || addTaskForm.get('type').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
               </div>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
       </div>
+      <nz-divider></nz-divider>
       <div nz-col nzSpan="24" class="text-right">
         <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addTaskForm.valid"><i nz-icon nzType="plus"></i>Submit Add Task</button>
       </div>
+    </div>
+  </form>
+</ng-template>
+
+
+<!-- Add to Pipeline -->
+<ng-template #addToPipelineTemplate let-data let-drawerRef="drawerRef">
+  <form nz-form [formGroup]="addToPipelineForm" (ngSubmit)="submitAddToPipeline(addToPipelineForm.value, data?.value._id)">
+    <nz-form-item class="luxx-input">
+      <nz-form-label nzFor="pipeline">Pipeline</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="pipelineErrors">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select pipeline" formControlName="pipeline" id="pipeline" required>
+          <nz-option [nzLabel]="pipeline.title" [nzValue]="pipeline._id" *ngFor="let pipeline of pipelines"></nz-option>
+        </nz-select>
+        <ng-template #pipelineErrors let-control>
+          <div *ngFor="let add_pipeline_validation_messages of add_pipeline_validation_messages.pipeline">
+            <div *ngIf="addToPipelineForm.get('pipeline').hasError(add_pipeline_validation_messages.pipeline) && (addToPipelineForm.get('pipeline').dirty || addToPipelineForm.get('pipeline').touched)" class="luxx-input-error mt-lg-1">{{ add_pipeline_validation_messages.message }}</div>
+          </div>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="luxx-input">
+      <nz-form-label nzFor="value">Value</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="valueErrors">
+        <nz-input-number
+          formControlName="value"
+          id="value"
+          [nzMin]="0"
+          [nzStep]="10"
+          [nzFormatter]="utilsService.formatterDollar"
+          [nzParser]="utilsService.parserDollar"
+        ></nz-input-number>
+        <ng-template #valueErrors let-control>
+          <div *ngFor="let add_pipeline_validation_messages of add_pipeline_validation_messages.value">
+            <div *ngIf="addToPipelineForm.get('value').hasError(add_pipeline_validation_messages.type) && (addToPipelineForm.get('value').dirty || addToPipelineForm.get('value').touched)" class="luxx-input-error mt-lg-1">{{ add_pipeline_validation_messages.message }}</div>
+          </div>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-divider></nz-divider>
+    <div class="text-right">
+      <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addToPipelineForm.valid"><i nz-icon nzType="plus"></i>Submit Add to Pipeline</button>
     </div>
   </form>
 </ng-template>
