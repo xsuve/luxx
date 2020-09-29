@@ -8,7 +8,7 @@
   <ul nz-menu nzTheme="light" nzMode="inline" class="sider-menu">
     <li nz-menu-item routerLink="/dashboard" [nzSelected]="activeRoute == 'dashboard' ? true : false">
       <i nz-icon nzType="home"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Dashboard</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'sider_dashboard' | translate }}</span>
     </li>
     <li nz-menu-item routerLink="/contacts" [nzSelected]="activeRoute == 'contacts' ? true : false">
       <i nz-icon nzType="user"></i>

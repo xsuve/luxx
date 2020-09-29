@@ -1,8 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { DragDropModule, DragDropRegistry } from '@angular/cdk/drag-drop';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -48,6 +53,10 @@ import { PipelineAddComponent } from './pipeline-add/pipeline-add.component';
 import { PipelineViewComponent } from './pipeline-view/pipeline-view.component';
 import { SettingsComponent } from './settings/settings.component';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 registerLocaleData(en);
 
 @NgModule({
@@ -77,6 +86,13 @@ registerLocaleData(en);
   imports: [
     BrowserModule,
     DragDropModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     FullCalendarModule,
     AppRoutingModule,
     NgZorroAntdModule,
