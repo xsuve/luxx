@@ -111,6 +111,7 @@ export class ContactsComponent implements OnInit {
       value: [0]
     });
 
+
     // Init Translations
     this.initTranslations();
   }
@@ -270,7 +271,7 @@ export class ContactsComponent implements OnInit {
     this.translate.get('add_contact_to_pipeline').subscribe(res => {
       addToPipelineTranslations.title = res;
     });
-    
+
     this.drawerRef = this.drawerService.create({
       nzTitle: addToPipelineTranslations.title,
       nzClosable: false,
