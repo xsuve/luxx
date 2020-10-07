@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { UtilsService } from '../services/utils.service';
 
 import { User } from '../models/user.model';
@@ -19,6 +21,7 @@ export class NavComponent implements OnInit {
   pageHeader: string = 'Dashboard';
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private userService: UserService,
     private router: Router,
@@ -34,54 +37,84 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     switch(this.router.url) {
       case '/dashboard':
-        this.pageHeader = 'Dashboard';
+        this.translate.get('dashboard').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
 
       case '/contacts':
-        this.pageHeader = 'Contacts';
+        this.translate.get('contacts').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/contacts/add':
-        this.pageHeader = 'Add Contact';
+        this.translate.get('add_contact').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/contact/edit/' + this.route.snapshot.paramMap.get('id'):
-        this.pageHeader = 'Edit Contact';
+        this.translate.get('edit_contact').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/contact/' + this.route.snapshot.paramMap.get('id'):
-        this.pageHeader = 'View Contact';
+        this.translate.get('view_contact').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
 
       case '/companies':
-        this.pageHeader = 'Companies';
+        this.translate.get('companies').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/companies/add':
-        this.pageHeader = 'Add Company';
+        this.translate.get('add_company').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/company/edit/' + this.route.snapshot.paramMap.get('id'):
-        this.pageHeader = 'Edit Company';
+        this.translate.get('edit_company').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/company/' + this.route.snapshot.paramMap.get('id'):
-        this.pageHeader = 'View Company';
+        this.translate.get('view_company').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
 
       case '/pipelines':
-        this.pageHeader = 'Pipelines';
+        this.translate.get('pipelines').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/pipelines/add':
-        this.pageHeader = 'Add Pipeline';
+        this.translate.get('add_pipeline').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/pipeline/edit/' + this.route.snapshot.paramMap.get('id'):
-        this.pageHeader = 'Edit Pipeline';
+        this.translate.get('edit_pipeline').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
       case '/pipeline/' + this.route.snapshot.paramMap.get('id'):
-        this.pageHeader = 'View Pipeline';
+        this.translate.get('view_pipeline').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
 
       case '/settings':
-        this.pageHeader = 'Settings';
+        this.translate.get('settings').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
 
       default:
-        this.pageHeader = 'Dashboard';
+        this.translate.get('dashboard').subscribe(res => {
+          this.pageHeader = res;
+        });
       break;
     }
   }

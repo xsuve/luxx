@@ -22,10 +22,10 @@
       </a>
       <nz-dropdown-menu #accountMenu="nzDropdownMenu">
         <ul nz-menu class="luxx-dropdown-menu nav-dropdown-menu">
-          <li nz-menu-item>Profile</li>
-          <a routerLink="/settings"><li nz-menu-item>Settings</li></a>
+          <li nz-menu-item>{{ 'profile' | translate }}</li>
+          <a routerLink="/settings"><li nz-menu-item>{{ 'settings' | translate }}</li></a>
           <li nz-menu-divider></li>
-          <li nz-menu-item (click)="logOut()">Log out</li>
+          <li nz-menu-item (click)="logOut()">{{ 'logout' | translate }}</li>
         </ul>
       </nz-dropdown-menu>
     </div>

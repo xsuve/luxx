@@ -8,27 +8,27 @@
   <ul nz-menu nzTheme="light" nzMode="inline" class="sider-menu">
     <li nz-menu-item routerLink="/dashboard" [nzSelected]="activeRoute == 'dashboard' ? true : false">
       <i nz-icon nzType="home"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'sider_dashboard' | translate }}</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'dashboard' | translate }}</span>
     </li>
     <li nz-menu-item routerLink="/contacts" [nzSelected]="activeRoute == 'contacts' ? true : false">
       <i nz-icon nzType="user"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Contacts</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'contacts' | translate }}</span>
     </li>
     <li nz-menu-item routerLink="/companies" [nzSelected]="activeRoute == 'companies' ? true : false">
       <i nz-icon nzType="shop"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Companies</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'companies' | translate }}</span>
     </li>
     <li nz-menu-item routerLink="/pipelines" [nzSelected]="activeRoute == 'pipelines' ? true : false">
       <i nz-icon nzType="filter"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Pipelines</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'pipelines' | translate }}</span>
     </li>
     <li nz-menu-item routerLink="/analytics" [nzSelected]="activeRoute == 'analytics' ? true : false">
       <i nz-icon nzType="pie-chart"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Analytics</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'analytics' | translate }}</span>
     </li>
     <li nz-menu-item routerLink="/apps" [nzSelected]="activeRoute == 'apps' ? true : false">
       <i nz-icon nzType="appstore"></i>
-      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">Apps</span>
+      <span class="d-none d-sm-inline-block d-md-inline-block d-lg-inline-block">{{ 'apps' | translate }}</span>
     </li>
   </ul>
   <div class="sider-upgrade p-lg-3">

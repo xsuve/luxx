@@ -10,13 +10,13 @@
         <div nz-row class="mb-lg-4 mb-3">
           <div nz-col nzSpan="16" nzXs="8" class="mt-lg-3">
             <nz-breadcrumb class="inner-content-breadcrumbs">
-              <nz-breadcrumb-item>Your Contacts</nz-breadcrumb-item>
+              <nz-breadcrumb-item>{{ 'your_contacts' | translate }}</nz-breadcrumb-item>
             </nz-breadcrumb>
           </div>
           <div nz-col nzSpan="8" nzXs="16" class="text-right">
-            <button nz-button nzType="default" class="luxx-btn mr-lg-4 mr-3" (click)="toggleFilters()"><i nz-icon nzType="filter"></i><div class="d-lg-inline-block d-none">Filter</div></button>
+            <button nz-button nzType="default" class="luxx-btn mr-lg-4 mr-3" (click)="toggleFilters()"><i nz-icon nzType="filter"></i><div class="d-lg-inline-block d-none">{{ 'filter' | translate }}</div></button>
             <a routerLink="/contacts/add">
-              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i><div class="d-lg-inline-block d-none">Add Contact</div></button>
+              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i><div class="d-lg-inline-block d-none">{{ 'add_contact' | translate }}</div></button>
             </a>
           </div>
         </div>
@@ -62,14 +62,14 @@
               </a>
               <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu class="luxx-dropdown-menu">
-                  <li nz-menu-item (click)="addToPipeline(contact)" *ngIf="pipelines.length > 0 && canAddToPipeline(contact._id)"><i nz-icon nzType="filter"></i> Add to Pipeline</li>
-                  <li nz-menu-item (click)="addTask(contact)"><i nz-icon nzType="unordered-list"></i> New Task</li>
-                  <li nz-menu-item><i nz-icon nzType="align-left"></i> New Note</li>
-                  <li nz-menu-item><i nz-icon nzType="file-text"></i> New Invoice</li>
+                  <li nz-menu-item (click)="addToPipeline(contact)" *ngIf="pipelines.length > 0 && canAddToPipeline(contact._id)"><i nz-icon nzType="filter"></i> {{ 'add_to_pipeline' | translate }}</li>
+                  <li nz-menu-item (click)="addTask(contact)"><i nz-icon nzType="unordered-list"></i> {{ 'new_task' | translate }}</li>
+                  <li nz-menu-item><i nz-icon nzType="align-left"></i> {{ 'new_note' | translate }}</li>
+                  <li nz-menu-item><i nz-icon nzType="file-text"></i> {{ 'new_invoice' | translate }}</li>
                   <a routerLink="/contact/edit/{{ contact._id }}">
-                    <li nz-menu-item><i nz-icon nzType="edit"></i> Edit</li>
+                    <li nz-menu-item><i nz-icon nzType="edit"></i> {{ 'edit' | translate }}</li>
                   </a>
-                  <li nz-menu-item (click)="deleteContact(contact._id)"><i nz-icon nzType="delete"></i> Delete</li>
+                  <li nz-menu-item (click)="deleteContact(contact._id)"><i nz-icon nzType="delete"></i> {{ 'delete' | translate }}</li>
                 </ul>
               </nz-dropdown-menu>
             </ng-template>
@@ -84,32 +84,32 @@
 
 
 <!-- Filters -->
-<nz-drawer [nzMask]="false" [nzVisible]="filtersToggled" nzPlacement="right" nzTitle="Filters" (nzOnClose)="toggleFilters()">
+<nz-drawer [nzMask]="false" [nzVisible]="filtersToggled" nzPlacement="right" [nzTitle]="'filters' | translate" (nzOnClose)="toggleFilters()">
   <div class="luxx-filters-content">
     <div class="mb-lg-5 mb-4">
-      <p class="mb-lg-2 mb-2">SEARCH</p>
+      <p class="mb-lg-2 mb-2">{{ 'search_uc' | translate }}</p>
       <div class="luxx-input">
-        <input nz-input placeholder="Search by name" [(ngModel)]="query">
+        <input nz-input placeholder="{{ 'search_by_name' | translate }}" [(ngModel)]="query">
       </div>
     </div>
     <div class="mb-lg-5 mb-4">
-      <p class="mb-lg-2 mb-2">STAGE</p>
-      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Prospecting</label>
+      <p class="mb-lg-2 mb-2">{{ 'stage_uc' | translate }}</p>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ 'prospecting' | translate }}</label>
       <br>
-      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Securing Lead</label>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ 'securing_lead' | translate }}</label>
       <br>
-      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Pitching Solution</label>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ 'pitching_solution' | translate }}</label>
       <br>
-      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Qualifying Deals</label>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ 'qualifying_deals' | translate }}</label>
       <br>
-      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Sending Proposal</label>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ 'sending_proposal' | translate }}</label>
       <br>
-      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">Deal Negotiation</label>
+      <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ 'deal_negotiation' | translate }}</label>
       <br>
-      <label nz-checkbox class="luxx-checkbox">Closure</label>
+      <label nz-checkbox class="luxx-checkbox">{{ 'closure' | translate }}</label>
     </div>
     <div class="mb-lg-5 mb-4">
-      <p class="mb-lg-2 mb-2">COMPANY</p>
+      <p class="mb-lg-2 mb-2">{{ 'company_uc' | translate }}</p>
       <div *ngFor="let company of companies">
         <label nz-checkbox class="luxx-checkbox mb-lg-2 mb-2">{{ company.name }}</label>
         <br>
@@ -122,22 +122,22 @@
 <ng-template #addTaskTemplate let-data let-drawerRef="drawerRef">
   <form nz-form [formGroup]="addTaskForm" (ngSubmit)="submitAddTask(addTaskForm.value, data?.value._id)">
     <nz-form-item class="luxx-input">
-      <nz-form-label nzFor="taskTitle">Title</nz-form-label>
+      <nz-form-label nzFor="taskTitle">{{ 'title' | translate }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="taskTitleErrors">
-        <input nz-input placeholder="Task title" formControlName="title" id="taskTitle">
+        <input nz-input placeholder="{{ 'task_title' | translate }}" formControlName="title" id="taskTitle">
         <ng-template #taskTitleErrors let-control>
-          <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.title">
+          <div *ngFor="let add_task_validation_messages of add_task_validation_messages.title">
             <div *ngIf="addTaskForm.get('title').hasError(add_task_validation_messages.type) && (addTaskForm.get('title').dirty || addTaskForm.get('title').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
           </div>
         </ng-template>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item class="luxx-input">
-      <nz-form-label nzFor="taskNotes">Notes</nz-form-label>
+      <nz-form-label nzFor="taskNotes">{{ 'notes' | translate }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="taskNotesErrors">
-        <textarea nz-input placeholder="Task notes" formControlName="notes" [nzAutosize]="{ minRows: 3, maxRows: 5 }" id="taskNotes"></textarea>
+        <textarea nz-input placeholder="{{ 'task_notes' | translate }}" formControlName="notes" [nzAutosize]="{ minRows: 3, maxRows: 5 }" id="taskNotes"></textarea>
         <ng-template #taskNotesErrors let-control>
-          <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.notes">
+          <div *ngFor="let add_task_validation_messages of add_task_validation_messages.notes">
             <div *ngIf="addTaskForm.get('notes').hasError(add_task_validation_messages.type) && (addTaskForm.get('notes').dirty || addTaskForm.get('notes').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
           </div>
         </ng-template>
@@ -146,11 +146,11 @@
     <div nz-row nzGutter="30">
       <div nz-col nzSpan="12">
         <nz-form-item class="luxx-input">
-          <nz-form-label nzFor="taskDeadline">Deadline</nz-form-label>
+          <nz-form-label nzFor="taskDeadline">{{ 'deadline' | translate }}</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="taskDeadlineErrors">
             <nz-date-picker formControlName="deadline" id="taskDeadline"></nz-date-picker>
             <ng-template #taskDeadlineErrors let-control>
-              <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.deadline">
+              <div *ngFor="let add_task_validation_messages of add_task_validation_messages.deadline">
                 <div *ngIf="addTaskForm.get('deadline').hasError(add_task_validation_messages.type) && (addTaskForm.get('deadline').dirty || addTaskForm.get('deadline').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
               </div>
             </ng-template>
@@ -159,14 +159,14 @@
       </div>
       <div nz-col nzSpan="12">
         <nz-form-item class="luxx-input">
-          <nz-form-label nzFor="taskType">Type</nz-form-label>
+          <nz-form-label nzFor="taskType">{{ 'type' | translate }}</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="taskTypeErrors">
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select task type" formControlName="type" id="taskType" required>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'select_task_type' | translate }}" formControlName="type" id="taskType" required>
               <nz-option nzLabel="To-do" nzValue="todo"></nz-option>
               <nz-option nzLabel="Call" nzValue="call"></nz-option>
             </nz-select>
             <ng-template #taskTypeErrors let-control>
-              <div *ngFor="let add_task_validation_messages of add_task_validation_messages_messages.type">
+              <div *ngFor="let add_task_validation_messages of add_task_validation_messages.type">
                 <div *ngIf="addTaskForm.get('type').hasError(add_task_validation_messages.type) && (addTaskForm.get('type').dirty || addTaskForm.get('type').touched)" class="luxx-input-error mt-lg-1">{{ add_task_validation_messages.message }}</div>
               </div>
             </ng-template>
@@ -175,7 +175,7 @@
       </div>
       <nz-divider></nz-divider>
       <div nz-col nzSpan="24" class="text-right">
-        <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addTaskForm.valid"><i nz-icon nzType="plus"></i>Submit Add Task</button>
+        <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addTaskForm.valid"><i nz-icon nzType="plus"></i>{{ 'submit_add_task' | translate }}</button>
       </div>
     </div>
   </form>
@@ -186,9 +186,9 @@
 <ng-template #addToPipelineTemplate let-data let-drawerRef="drawerRef">
   <form nz-form [formGroup]="addToPipelineForm" (ngSubmit)="submitAddToPipeline(addToPipelineForm.value, data?.value._id)">
     <nz-form-item class="luxx-input">
-      <nz-form-label nzFor="pipeline">Pipeline</nz-form-label>
+      <nz-form-label nzFor="pipeline">{{ 'pipeline' | translate }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="pipelineErrors">
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select pipeline" formControlName="pipeline" id="pipeline" required>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'select_pipeline' | translate }}" formControlName="pipeline" id="pipeline" required>
           <nz-option [nzLabel]="pipeline.title" [nzValue]="pipeline._id" *ngFor="let pipeline of pipelines"></nz-option>
         </nz-select>
         <ng-template #pipelineErrors let-control>
@@ -199,7 +199,7 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item class="luxx-input">
-      <nz-form-label nzFor="value">Value</nz-form-label>
+      <nz-form-label nzFor="value">{{ 'value' | translate }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="valueErrors">
         <nz-input-number
           formControlName="value"
@@ -218,7 +218,7 @@
     </nz-form-item>
     <nz-divider></nz-divider>
     <div class="text-right">
-      <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addToPipelineForm.valid"><i nz-icon nzType="plus"></i>Submit Add to Pipeline</button>
+      <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!addToPipelineForm.valid"><i nz-icon nzType="plus"></i>{{ 'submit_add_to_pipeline' | translate }}</button>
     </div>
   </form>
 </ng-template>

@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { UtilsService } from '../services/utils.service';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -72,6 +74,7 @@ export class ContactsComponent implements OnInit {
   };
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private modalService: NzModalService,
     private drawerService: NzDrawerService,
@@ -107,11 +110,30 @@ export class ContactsComponent implements OnInit {
       pipeline: [null, [Validators.required]],
       value: [0]
     });
+
+    // Init Translations
+    this.initTranslations();
   }
 
   ngOnInit() {
     // Fetch Contacts
     this.fetchContacts();
+  }
+
+  // Init Translations
+  initTranslations() {
+    this.translate.get('the_title_is_required').subscribe(res => {
+      this.add_task_validation_messages.title[0].message = res;
+    });
+    this.translate.get('the_deadline_is_required').subscribe(res => {
+      this.add_task_validation_messages.deadline[0].message = res;
+    });
+    this.translate.get('the_type_is_required').subscribe(res => {
+      this.add_task_validation_messages.type[0].message = res;
+    });
+    this.translate.get('the_pipeline_is_required').subscribe(res => {
+      this.add_pipeline_validation_messages.pipeline[0].message = res;
+    });
   }
 
   // Fetch Contacts
@@ -190,15 +212,35 @@ export class ContactsComponent implements OnInit {
 
   // Delete Contact
   deleteContact(id) {
+    let deleteContactTranslations = {
+      title: 'Confirm Delete Contact',
+      content: 'Are you sure you want to delete this contact?',
+      okText: 'Yes, Delete Contact',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_contact').subscribe(res => {
+      deleteContactTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_contact').subscribe(res => {
+      deleteContactTranslations.content = res;
+    });
+    this.translate.get('yes_delete_contact').subscribe(res => {
+      deleteContactTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteContactTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Contact',
-      nzContent: 'Are you sure you want to delete this contact?',
-      nzOkText: 'Yes, Delete Contact',
+      nzTitle: deleteContactTranslations.title,
+      nzContent: deleteContactTranslations.content,
+      nzOkText: deleteContactTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteContactTranslations.cancelText,
       nzOnOk: () => {
         // Delete Contact Tasks
         this.contactService.getTasks(id).subscribe(tasks => {
@@ -221,8 +263,16 @@ export class ContactsComponent implements OnInit {
 
   // Add to Pipeline
   addToPipeline(contact) {
+    let addToPipelineTranslations = {
+      title: 'Add Contact to Pipeline'
+    };
+
+    this.translate.get('add_contact_to_pipeline').subscribe(res => {
+      addToPipelineTranslations.title = res;
+    });
+    
     this.drawerRef = this.drawerService.create({
-      nzTitle: 'Add Contact to Pipeline',
+      nzTitle: addToPipelineTranslations.title,
       nzClosable: false,
       nzWidth: 384,
       nzContent: this.addToPipelineTemplate,
