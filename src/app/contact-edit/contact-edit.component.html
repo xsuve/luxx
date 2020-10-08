@@ -11,20 +11,20 @@
           <div nz-col nzSpan="24" class="mt-lg-3">
             <nz-breadcrumb class="inner-content-breadcrumbs">
               <nz-breadcrumb-item>
-                <a routerLink="/contacts">Your Contacts</a>
+                <a routerLink="/contacts">{{ 'your_contacts' | translate }}</a>
               </nz-breadcrumb-item>
               <nz-breadcrumb-item>
                 <a routerLink="/contact/{{ contact._id }}">{{ contact.fullName }}</a>
               </nz-breadcrumb-item>
-              <nz-breadcrumb-item>Edit Contact</nz-breadcrumb-item>
+              <nz-breadcrumb-item>{{ 'edit_contact' | translate }}</nz-breadcrumb-item>
             </nz-breadcrumb>
           </div>
         </div>
 
         <nz-steps [nzCurrent]="currentStep" nzProgressDot class="luxx-steps">
-          <nz-step nzTitle="Company Info" nzDescription="Company, job position, etc."></nz-step>
-          <nz-step nzTitle="Basic Info" nzDescription="Full name, stage, email, etc."></nz-step>
-          <nz-step nzTitle="Social Links" nzDescription="LinkedIn, Facebook, GitHub, etc."></nz-step>
+          <nz-step nzTitle="{{ 'company_info' | translate }}" nzDescription="{{ 'company_job_position_etc' | translate }}"></nz-step>
+          <nz-step nzTitle="{{ 'basic_info' | translate }}" nzDescription="{{ 'full_name_stage_email_etc' | translate }}"></nz-step>
+          <nz-step nzTitle="{{ 'social_links' | translate }}" nzDescription="{{ 'linkedin_facebook_github_etc' | translate }}"></nz-step>
         </nz-steps>
 
         <form nz-form [formGroup]="editContactForm" (ngSubmit)="submitEditContact(editContactForm.value)">
@@ -35,9 +35,9 @@
               <!-- Company Info -->
               <div *ngIf="currentStep == 0">
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactCompany">Company</nz-form-label>
+                  <nz-form-label nzFor="contactCompany">{{ 'company' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactCompanyErrors">
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select contact company" formControlName="company" [(ngModel)]="contact.companyId" id="contactCompany">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'select_contact_company' | translate }}" formControlName="company" [(ngModel)]="contact.companyId" id="contactCompany" (ngModelChange)="companySelectedEvent($event)">
                       <nz-option [nzLabel]="company.name" [nzValue]="company._id" *ngFor="let company of companies"></nz-option>
                     </nz-select>
                     <ng-template #contactCompanyErrors let-control>
@@ -48,9 +48,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactJobPosition">Job position</nz-form-label>
+                  <nz-form-label nzFor="contactJobPosition">{{ 'job_position' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactJobPositionErrors">
-                    <input nz-input placeholder="Contact job position" formControlName="companyPosition" [(ngModel)]="contact.companyPosition" id="contactJobPosition">
+                    <input nz-input placeholder="{{ 'contact_job_position' | translate }}" formControlName="companyPosition" [(ngModel)]="contact.companyPosition" id="contactJobPosition">
                     <ng-template #contactJobPositionErrors let-control>
                       <div *ngFor="let validation of validation_messages.companyPosition">
                         <div *ngIf="editContactForm.get('companyPosition').hasError(validation.type) && (editContactForm.get('companyPosition').dirty || editContactForm.get('companyPosition').touched)" class="luxx-input-error mt-lg-1">{{validation.message}}</div>
@@ -63,29 +63,29 @@
               <!-- Basic Info -->
               <div *ngIf="currentStep == 1">
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactStage">Stage</nz-form-label>
+                  <nz-form-label nzFor="contactStage">{{ 'stage' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactStageErrors">
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select contact stage" formControlName="stage" [(ngModel)]="contact.stage" id="contactStage" required [nzCustomTemplate]="contactStageSelected">
-                      <nz-option nzCustomContent nzLabel="Prospecting" nzValue="prospecting">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('prospecting')">Prospecting</nz-tag> Prospecting
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'select_contact_stage' | translate }}" formControlName="stage" [(ngModel)]="contact.stage" id="contactStage" required [nzCustomTemplate]="contactStageSelected">
+                      <nz-option nzCustomContent nzLabel="{{ 'prospecting' | translate }}" nzValue="prospecting">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('prospecting')">{{ 'prospecting' | translate }}</nz-tag> {{ 'prospecting' | translate }}
                       </nz-option>
-                      <nz-option nzCustomContent nzLabel="Securing Lead" nzValue="securing-lead">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('securing-lead')">Securing Lead</nz-tag> Securing Lead
+                      <nz-option nzCustomContent nzLabel="{{ 'securing_lead' | translate }}" nzValue="securing-lead">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('securing-lead')">{{ 'securing_lead' | translate }}</nz-tag> {{ 'securing_lead' | translate }}
                       </nz-option>
-                      <nz-option nzCustomContent nzLabel="Pitching Solution" nzValue="pitching-solution">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('pitching-solution')">Pitching Solution</nz-tag> Pitching Solution
+                      <nz-option nzCustomContent nzLabel="{{ 'pitching_solution' | translate }}" nzValue="pitching-solution">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('pitching-solution')">{{ 'pitching_solution' | translate }}</nz-tag> {{ 'pitching_solution' | translate }}
                       </nz-option>
-                      <nz-option nzCustomContent nzLabel="Qualifying Deals" nzValue="qualifying-deals">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('qualifying-deals')">Qualifying Deals</nz-tag> Qualifying Deals
+                      <nz-option nzCustomContent nzLabel="{{ 'qualifying_deals' | translate }}" nzValue="qualifying-deals">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('qualifying-deals')">{{ 'qualifying_deals' | translate }}</nz-tag> {{ 'qualifying_deals' | translate }}
                       </nz-option>
-                      <nz-option nzCustomContent nzLabel="Sending Proposal" nzValue="sending-proposal">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('sending-proposal')">Sending Proposal</nz-tag> Sending Proposal
+                      <nz-option nzCustomContent nzLabel="{{ 'sending_proposal' | translate }}" nzValue="sending-proposal">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('sending-proposal')">{{ 'sending_proposal' | translate }}</nz-tag> {{ 'sending_proposal' | translate }}
                       </nz-option>
-                      <nz-option nzCustomContent nzLabel="Deal Negotiation" nzValue="deal-negotiation">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('deal-negotiation')">Deal Negotiation</nz-tag> Deal Negotiation
+                      <nz-option nzCustomContent nzLabel="{{ 'deal_negotiation' | translate }}" nzValue="deal-negotiation">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('deal-negotiation')">{{ 'deal_negotiation' | translate }}</nz-tag> {{ 'deal_negotiation' | translate }}
                       </nz-option>
-                      <nz-option nzCustomContent nzLabel="Closure" nzValue="closure">
-                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('closure')">Closure</nz-tag> Closure
+                      <nz-option nzCustomContent nzLabel="{{ 'closure' | translate }}" nzValue="closure">
+                        <nz-tag class="luxx-card-tag" [ngClass]="utilsService.contactStageColor('closure')">{{ 'closure' | translate }}</nz-tag> {{ 'closure' | translate }}
                       </nz-option>
                     </nz-select>
                     <ng-template #contactStageSelected let-selected>
@@ -100,9 +100,9 @@
                 </nz-form-item>
                 <nz-divider></nz-divider>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactFullName">Full name</nz-form-label>
+                  <nz-form-label nzFor="contactFullName">{{ 'full_name' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactFullNameErrors">
-                    <input nz-input placeholder="Contact full name" formControlName="fullName" [(ngModel)]="contact.fullName" id="contactFullName" required>
+                    <input nz-input placeholder="{{ 'contact_full_name' | translate }}" formControlName="fullName" [(ngModel)]="contact.fullName" id="contactFullName" required>
                     <ng-template #contactFullNameErrors let-control>
                       <div *ngFor="let validation of validation_messages.fullName">
                         <div *ngIf="editContactForm.get('fullName').hasError(validation.type) && (editContactForm.get('fullName').dirty || editContactForm.get('fullName').touched)" class="luxx-input-error mt-lg-1">{{validation.message}}</div>
@@ -111,9 +111,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactEmail">Email</nz-form-label>
+                  <nz-form-label nzFor="contactEmail">{{ 'email' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactEmailErrors">
-                    <input nz-input type="email" placeholder="Contact email address" formControlName="email" [(ngModel)]="contact.email" id="contactEmail" required>
+                    <input nz-input type="email" placeholder="{{ 'contact_email_address' | translate }}" formControlName="email" [(ngModel)]="contact.email" id="contactEmail" required>
                     <ng-template #contactEmailErrors let-control>
                       <div *ngFor="let validation of validation_messages.email">
                         <div *ngIf="editContactForm.get('email').hasError(validation.type) && (editContactForm.get('email').dirty || editContactForm.get('email').touched)" class="luxx-input-error mt-lg-1">{{validation.message}}</div>
@@ -122,9 +122,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactPhone">Phone</nz-form-label>
+                  <nz-form-label nzFor="contactPhone">{{ 'phone' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactPhoneErrors">
-                    <input nz-input placeholder="Contact phone number" formControlName="phone" [(ngModel)]="contact.phone" id="contactPhone">
+                    <input nz-input placeholder="{{ 'contact_phone_number' | translate }}" formControlName="phone" [(ngModel)]="contact.phone" id="contactPhone">
                     <ng-template #contactPhoneErrors let-control>
                       <div *ngFor="let validation of validation_messages.phone">
                         <div *ngIf="editContactForm.get('phone').hasError(validation.type) && (editContactForm.get('phone').dirty || editContactForm.get('phone').touched)" class="luxx-input-error mt-lg-1">{{validation.message}}</div>
@@ -133,9 +133,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactCountry">Country</nz-form-label>
+                  <nz-form-label nzFor="contactCountry">{{ 'country' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactCountryErrors">
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select contact country" formControlName="country" [(ngModel)]="contact.country" id="contactCountry" [nzCustomTemplate]="contactCountrySelected">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'select_contact_country' | translate }}" formControlName="country" [(ngModel)]="contact.country" id="contactCountry" [nzCustomTemplate]="contactCountrySelected">
                       <nz-option nzCustomContent [nzLabel]="c.label" [nzValue]="c.value" *ngFor="let c of utilsService.countries">
                         <div class="luxx-select-option-image mr-lg-2"><img src="assets/img/flags/{{ c.flag }}"></div> {{ c.label }}
                       </nz-option>
@@ -151,9 +151,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="contactAddress">Address</nz-form-label>
+                  <nz-form-label nzFor="contactAddress">{{ 'address' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="contactAddressErrors">
-                    <input nz-input placeholder="Contact address" formControlName="address" [(ngModel)]="contact.address" id="contactAddress">
+                    <input nz-input placeholder="{{ 'contact_address' | translate }}" formControlName="address" [(ngModel)]="contact.address" id="contactAddress">
                     <ng-template #contactAddressErrors let-control>
                       <div *ngFor="let validation of validation_messages.address">
                         <div *ngIf="editContactForm.get('address').hasError(validation.type) && (editContactForm.get('address').dirty || editContactForm.get('address').touched)" class="luxx-input-error mt-lg-1">{{validation.message}}</div>
@@ -240,13 +240,13 @@
 
           <div nz-row nzGutter="30">
             <div nz-col nzSpan="12">
-              <button nz-button nzType="default" class="luxx-btn" (click)="changeStep(0)" *ngIf="currentStep == 1"><i nz-icon nzType="arrow-left"></i>Back</button>
-              <button nz-button nzType="default" class="luxx-btn" (click)="changeStep(1)" *ngIf="currentStep == 2"><i nz-icon nzType="arrow-left"></i>Back</button>
+              <button nz-button nzType="default" class="luxx-btn" (click)="changeStep(0)" *ngIf="currentStep == 1"><i nz-icon nzType="arrow-left"></i>{{ 'back' | translate }}</button>
+              <button nz-button nzType="default" class="luxx-btn" (click)="changeStep(1)" *ngIf="currentStep == 2"><i nz-icon nzType="arrow-left"></i>{{ 'back' | translate }}</button>
             </div>
             <div nz-col nzSpan="12" class="text-right">
-              <button nz-button nzType="primary" class="luxx-btn" (click)="changeStep(1)" *ngIf="currentStep == 0">Next<i nz-icon nzType="arrow-right"></i></button>
-              <button nz-button nzType="primary" class="luxx-btn" (click)="changeStep(2)" *ngIf="currentStep == 1">Next<i nz-icon nzType="arrow-right"></i></button>
-              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!editContactForm.valid" *ngIf="currentStep == 2"><i nz-icon nzType="edit"></i>Submit Edit Contact</button>
+              <button nz-button nzType="primary" class="luxx-btn" (click)="changeStep(1)" *ngIf="currentStep == 0">{{ 'next' | translate }}<i nz-icon nzType="arrow-right"></i></button>
+              <button nz-button nzType="primary" class="luxx-btn" (click)="changeStep(2)" *ngIf="currentStep == 1">{{ 'next' | translate }}<i nz-icon nzType="arrow-right"></i></button>
+              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!editContactForm.valid" *ngIf="currentStep == 2"><i nz-icon nzType="edit"></i>{{ 'submit_edit_contact' | translate }}</button>
             </div>
           </div>
 

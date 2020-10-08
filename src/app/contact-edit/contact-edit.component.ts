@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { UtilsService } from '../services/utils.service';
 
 import { User } from '../models/user.model';
@@ -41,10 +43,15 @@ export class ContactEditComponent implements OnInit {
     ],
     'phone': [
       { type: 'minlength', message: 'Phone must be at least 10 characters long.' }
+    ],
+    'companyPosition': [
+      { type: 'required', message: 'The company position is required.' }
     ]
   };
+  companySelected: boolean = false;
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private fb: FormBuilder,
     private router: Router,
@@ -64,6 +71,9 @@ export class ContactEditComponent implements OnInit {
     this.companyService.getCompanies(this.loggedInUser._id).subscribe(res => {
       this.companies = res;
     });
+
+    // Init Translations
+    this.initTranslations();
   }
 
   ngOnInit() {
@@ -85,9 +95,46 @@ export class ContactEditComponent implements OnInit {
     });
   }
 
+  // Init Translations
+  initTranslations() {
+    this.translate.get('the_stage_is_required').subscribe(res => {
+      this.validation_messages.stage[0].message = res;
+    });
+    this.translate.get('the_full_name_is_required').subscribe(res => {
+      this.validation_messages.fullName[0].message = res;
+    });
+    this.translate.get('full_name_minlength').subscribe(res => {
+      this.validation_messages.fullName[1].message = res;
+    });
+    this.translate.get('the_email_is_required').subscribe(res => {
+      this.validation_messages.email[0].message = res;
+    });
+    this.translate.get('email_valid_address').subscribe(res => {
+      this.validation_messages.email[1].message = res;
+    });
+    this.translate.get('phone_minlength').subscribe(res => {
+      this.validation_messages.phone[0].message = res;
+    });
+    this.translate.get('the_company_position_is_required').subscribe(res => {
+      this.validation_messages.companyPosition[0].message = res;
+    });
+  }
+
   // Change Step
   changeStep(step) {
     this.currentStep = step;
+  }
+
+  // Company Selected
+  companySelectedEvent($event) {
+    if($event != null) {
+      this.editContactForm.get('companyPosition')!.setValidators(Validators.required);
+      this.editContactForm.get('companyPosition')!.markAsDirty();
+    } else {
+      this.editContactForm.get('companyPosition')!.clearValidators();
+      this.editContactForm.get('companyPosition')!.markAsPristine();
+    }
+    this.editContactForm.get('companyPosition')!.updateValueAndValidity();
   }
 
   // Submit Edit Contact
