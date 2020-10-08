@@ -72,6 +72,7 @@ export class ContactEditComponent implements OnInit {
       this.companies = res;
     });
 
+
     // Init Translations
     this.initTranslations();
   }

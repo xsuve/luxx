@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import moment from 'moment';
 
 import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
@@ -46,7 +48,6 @@ export class ContactViewComponent implements OnInit {
   events: Event[] = [];
   orders = [];
 
-  taskNoNotes: string = 'No notes.';
   todayDate: Date = new Date();
 
   // Events Calendar
@@ -90,7 +91,7 @@ export class ContactViewComponent implements OnInit {
 
 
   drawerRef: any;
-  
+
 
   // Add Task
   @ViewChild('addTaskTemplate', { static: false }) addTaskTemplate?: TemplateRef<{
@@ -211,6 +212,7 @@ export class ContactViewComponent implements OnInit {
   };
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private modalService: NzModalService,
     private drawerService: NzDrawerService,
@@ -278,6 +280,10 @@ export class ContactViewComponent implements OnInit {
       dateTimeInterval: ['', [Validators.required]],
       type: [null, [Validators.required]]
     });
+
+
+    // Init Translations
+    this.initTranslations();
   }
 
   // Events Calendar
@@ -329,6 +335,46 @@ export class ContactViewComponent implements OnInit {
   ngOnInit() {
     // Format Events Calendar Title Initial Date
     this.eventsCalendarTitle = moment(this.todayDate).subtract(2, 'days').format('D MMM') + ' - ' + moment(this.todayDate).add(4, 'days').format('D MMM, YYYY');
+  }
+
+  // Init Translations
+  initTranslations() {
+    this.translate.get('the_title_is_required').subscribe(res => {
+      this.add_task_form_validation_messages.title[0].message = res;
+      this.edit_task_form_validation_messages.title[0].message = res;
+    });
+    this.translate.get('the_deadline_is_required').subscribe(res => {
+      this.add_task_form_validation_messages.deadline[0].message = res;
+      this.edit_task_form_validation_messages.deadline[0].message = res;
+    });
+    this.translate.get('the_type_is_required').subscribe(res => {
+      this.add_task_form_validation_messages.type[0].message = res;
+      this.edit_task_form_validation_messages.type[0].message = res;
+    });
+
+    this.translate.get('the_text_is_required').subscribe(res => {
+      this.add_note_form_validation_messages.text[0].message = res;
+      this.edit_note_form_validation_messages.text[0].message = res;
+    });
+
+    this.translate.get('the_number_is_required').subscribe(res => {
+      this.add_invoice_form_validation_messages.number[0].message = res;
+      this.edit_invoice_form_validation_messages.number[0].message = res;
+    });
+    this.translate.get('the_due_date_is_required').subscribe(res => {
+      this.add_invoice_form_validation_messages.dueDate[0].message = res;
+      this.edit_invoice_form_validation_messages.dueDate[0].message = res;
+    });
+
+    this.translate.get('the_title_is_required').subscribe(res => {
+      this.schedule_event_form_validation_messages.title[0].message = res;
+    });
+    this.translate.get('the_date_and_time_is_required').subscribe(res => {
+      this.schedule_event_form_validation_messages.dateTimeInterval[0].message = res;
+    });
+    this.translate.get('the_type_is_required').subscribe(res => {
+      this.schedule_event_form_validation_messages.type[0].message = res;
+    });
   }
 
   // Fetch Tasks
@@ -475,6 +521,14 @@ export class ContactViewComponent implements OnInit {
 
   // Edit Task
   editTask(task) {
+    let editTaskTranslations = {
+      title: 'Edit Task'
+    };
+
+    this.translate.get('edit_task').subscribe(res => {
+      editTaskTranslations.title = res;
+    });
+
     // Edit Task Form
     this.editTaskForm = this.fb.group({
       title: [task.title, [Validators.required]],
@@ -484,7 +538,7 @@ export class ContactViewComponent implements OnInit {
     });
 
     this.drawerRef = this.drawerService.create({
-      nzTitle: 'Edit Task',
+      nzTitle: editTaskTranslations.title,
       nzClosable: false,
       nzWidth: 384,
       nzContent: this.editTaskTemplate,
@@ -535,15 +589,35 @@ export class ContactViewComponent implements OnInit {
   }
 
   deleteTask(id) {
+    let deleteTaskTranslations = {
+      title: 'Confirm Delete Task',
+      content: 'Are you sure you want to delete this task?',
+      okText: 'Yes, Delete Task',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_task').subscribe(res => {
+      deleteTaskTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_task').subscribe(res => {
+      deleteTaskTranslations.content = res;
+    });
+    this.translate.get('yes_delete_task').subscribe(res => {
+      deleteTaskTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteTaskTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Task',
-      nzContent: 'Are you sure you want to delete this task?',
-      nzOkText: 'Yes, Delete Task',
+      nzTitle: deleteTaskTranslations.title,
+      nzContent: deleteTaskTranslations.content,
+      nzOkText: deleteTaskTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteTaskTranslations.cancelText,
       nzOnOk: () => {
         // Delete Task
         this.contactService.deleteTask(id).subscribe(res => {
@@ -597,13 +671,21 @@ export class ContactViewComponent implements OnInit {
 
   // Edit Note
   editNote(note) {
+    let editNoteTranslations = {
+      title: 'Edit Note'
+    };
+
+    this.translate.get('edit_note').subscribe(res => {
+      editNoteTranslations.title = res;
+    });
+
     // Edit Note Form
     this.editNoteForm = this.fb.group({
       text: [note.text, [Validators.required]]
     });
 
     this.drawerRef = this.drawerService.create({
-      nzTitle: 'Edit Note',
+      nzTitle: editNoteTranslations.title,
       nzClosable: false,
       nzWidth: 384,
       nzContent: this.editNoteTemplate,
@@ -643,15 +725,35 @@ export class ContactViewComponent implements OnInit {
   }
 
   deleteNote(id) {
+    let deleteNoteTranslations = {
+      title: 'Confirm Delete Note',
+      content: 'Are you sure you want to delete this note?',
+      okText: 'Yes, Delete Note',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_note').subscribe(res => {
+      deleteNoteTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_note').subscribe(res => {
+      deleteNoteTranslations.content = res;
+    });
+    this.translate.get('yes_delete_note').subscribe(res => {
+      deleteNoteTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteNoteTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Note',
-      nzContent: 'Are you sure you want to delete this note?',
-      nzOkText: 'Yes, Delete Note',
+      nzTitle: deleteNoteTranslations.title,
+      nzContent: deleteNoteTranslations.content,
+      nzOkText: deleteNoteTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteNoteTranslations.cancelText,
       nzOnOk: () => {
         // Delete Note
         this.contactService.deleteNote(id).subscribe(res => {
@@ -721,6 +823,14 @@ export class ContactViewComponent implements OnInit {
 
   // Edit Invoice
   editInvoice(invoice) {
+    let editInvoiceTranslations = {
+      title: 'Edit Invoice'
+    };
+
+    this.translate.get('edit_invoice').subscribe(res => {
+      editInvoiceTranslations.title = res;
+    });
+
     // Invoices Min Number
     this.invoicesMinNumber = (this.invoices.reduce(function(prev, current) {
       return (prev.number > current.number) ? prev : current;
@@ -735,7 +845,7 @@ export class ContactViewComponent implements OnInit {
     });
 
     this.drawerRef = this.drawerService.create({
-      nzTitle: 'Edit Invoice',
+      nzTitle: editInvoiceTranslations.title,
       nzClosable: false,
       nzWidth: 384,
       nzContent: this.editInvoiceTemplate,
@@ -782,15 +892,35 @@ export class ContactViewComponent implements OnInit {
   }
 
   deleteInvoice(id) {
+    let deleteInvoiceTranslations = {
+      title: 'Confirm Delete Invoice',
+      content: 'Are you sure you want to delete this invoice?',
+      okText: 'Yes, Delete Invoice',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_note').subscribe(res => {
+      deleteInvoiceTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_note').subscribe(res => {
+      deleteInvoiceTranslations.content = res;
+    });
+    this.translate.get('yes_delete_note').subscribe(res => {
+      deleteInvoiceTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteInvoiceTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Invoice',
-      nzContent: 'Are you sure you want to delete this invoice?',
-      nzOkText: 'Yes, Delete Invoice',
+      nzTitle: deleteInvoiceTranslations.title,
+      nzContent: deleteInvoiceTranslations.content,
+      nzOkText: deleteInvoiceTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteInvoiceTranslations.cancelText,
       nzOnOk: () => {
         // Delete Invoice
         this.contactService.deleteInvoice(id).subscribe(res => {
@@ -855,15 +985,35 @@ export class ContactViewComponent implements OnInit {
   }
 
   deleteEvent(id) {
+    let deleteEventTranslations = {
+      title: 'Confirm Delete Event',
+      content: 'Are you sure you want to delete this event?',
+      okText: 'Yes, Delete Event',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_event').subscribe(res => {
+      deleteEventTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_event').subscribe(res => {
+      deleteEventTranslations.content = res;
+    });
+    this.translate.get('yes_delete_event').subscribe(res => {
+      deleteEventTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteEventTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Event',
-      nzContent: 'Are you sure you want to delete this event?',
-      nzOkText: 'Yes, Delete Event',
+      nzTitle: deleteEventTranslations.title,
+      nzContent: deleteEventTranslations.content,
+      nzOkText: deleteEventTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteEventTranslations.cancelText,
       nzOnOk: () => {
         // Delete Event
         this.contactService.deleteEvent(id).subscribe(res => {
@@ -878,15 +1028,35 @@ export class ContactViewComponent implements OnInit {
 
   // Delete Contact
   deleteContact(id) {
+    let deleteContactTranslations = {
+      title: 'Confirm Delete Contact',
+      content: 'Are you sure you want to delete this contact?',
+      okText: 'Yes, Delete Contact',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_contact').subscribe(res => {
+      deleteContactTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_contact').subscribe(res => {
+      deleteContactTranslations.content = res;
+    });
+    this.translate.get('yes_delete_contact').subscribe(res => {
+      deleteContactTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteContactTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Contact',
-      nzContent: 'Are you sure you want to delete this contact?',
-      nzOkText: 'Yes, Delete Contact',
+      nzTitle: deleteContactTranslations.title,
+      nzContent: deleteContactTranslations.content,
+      nzOkText: deleteContactTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteContactTranslations.cancelText,
       nzOnOk: () => {
         // Delete Contact Tasks
         this.contactService.getTasks(id).subscribe(tasks => {

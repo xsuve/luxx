@@ -356,4 +356,16 @@ export class UtilsService {
     { label: 'Zimbabwe', iso: 'ZW', value: 'ZW', flag: 'ZW.png' }
   ];
 
+  // Get Country Name by ISO
+  getCountryByISO(iso) {
+    let label = '';
+    this.countries.forEach(country => {
+      if(country.iso == iso) {
+        label = country.label;
+      }
+    });
+
+    return label;
+  }
+
 }
