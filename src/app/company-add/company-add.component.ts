@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { UtilsService } from '../services/utils.service';
 
 import { UploadFile } from 'ng-zorro-antd/upload';
@@ -36,6 +38,7 @@ export class CompanyAddComponent implements OnInit {
   };
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private messageService: NzMessageService,
     private fb: FormBuilder,
@@ -44,6 +47,10 @@ export class CompanyAddComponent implements OnInit {
     private userService: UserService
   ) {
     this.loggedInUser = this.userService.getLoggedInUser();
+
+
+    // Init Translations
+    this.initTranslations();
   }
 
   ngOnInit() {
@@ -54,6 +61,16 @@ export class CompanyAddComponent implements OnInit {
       website: [''],
       numberOfEmployees: [''],
       annualRevenue: ['']
+    });
+  }
+
+  // Init Translations
+  initTranslations() {
+    this.translate.get('the_industry_is_required').subscribe(res => {
+      this.validation_messages.industry[0].message = res;
+    });
+    this.translate.get('the_name_is_required').subscribe(res => {
+      this.validation_messages.name[0].message = res;
     });
   }
 

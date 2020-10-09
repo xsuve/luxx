@@ -11,12 +11,12 @@
           <div nz-col nzSpan="24" class="mt-lg-3">
             <nz-breadcrumb class="inner-content-breadcrumbs">
               <nz-breadcrumb-item>
-                <a routerLink="/companies">Your Companies</a>
+                <a routerLink="/companies">{{ 'your_companies' | translate }}</a>
               </nz-breadcrumb-item>
               <nz-breadcrumb-item>
                 <a routerLink="/company/{{ company._id }}">{{ company.name }}</a>
               </nz-breadcrumb-item>
-              <nz-breadcrumb-item>Edit Company</nz-breadcrumb-item>
+              <nz-breadcrumb-item>{{ 'edit_company' | translate }}</nz-breadcrumb-item>
             </nz-breadcrumb>
           </div>
         </div>
@@ -29,7 +29,7 @@
               <!-- Company Info -->
               <div *ngIf="currentStep == 0">
                 <nz-form-item>
-                  <nz-form-label>Image</nz-form-label>
+                  <nz-form-label>{{ 'image' | translate }}</nz-form-label>
                   <nz-upload
                     class="image-upload"
                     nzAction="https://run.mocky.io/v3/261645aa-e8a4-49bb-8922-1cc99e7544ca"
@@ -41,15 +41,15 @@
                   >
                     <ng-container *ngIf="!avatarUrl">
                       <i class="upload-icon" nz-icon [nzType]="loadingImagePreview ? 'loading' : 'plus'"></i>
-                      <div class="ant-upload-text">Upload</div>
+                      <div class="ant-upload-text">{{ 'upload' | translate }}</div>
                     </ng-container>
                     <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%">
                   </nz-upload>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="companyIndustry">Industry</nz-form-label>
+                  <nz-form-label nzFor="companyIndustry">{{ 'industry' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="companyIndustryErrors">
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select company industry" formControlName="industry" [(ngModel)]="company.industry" id="companyIndustry">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{ 'select_company_industry' | translate }}" formControlName="industry" [(ngModel)]="company.industry" id="companyIndustry">
                       <nz-option [nzLabel]="industry.name" [nzValue]="industry.value" *ngFor="let industry of utilsService.companyIndustries"></nz-option>
                     </nz-select>
                     <ng-template #companyIndustryErrors let-control>
@@ -60,9 +60,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="companyName">Name</nz-form-label>
+                  <nz-form-label nzFor="companyName">{{ 'name' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="companyNameErrors">
-                    <input nz-input placeholder="Company name" formControlName="name" [(ngModel)]="company.name" id="companyName">
+                    <input nz-input placeholder="{{ 'company_name' | translate }}" formControlName="name" [(ngModel)]="company.name" id="companyName">
                     <ng-template #companyNameErrors let-control>
                       <div *ngFor="let validation of validation_messages.name">
                         <div *ngIf="editCompanyForm.get('name').hasError(validation.type) && (editCompanyForm.get('name').dirty || editCompanyForm.get('name').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
@@ -71,9 +71,9 @@
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="luxx-input">
-                  <nz-form-label nzFor="companyWebsite">Website</nz-form-label>
+                  <nz-form-label nzFor="companyWebsite">{{ 'website' | translate }}</nz-form-label>
                   <nz-form-control nzHasFeedback [nzErrorTip]="companyWebsiteErrors">
-                    <input nz-input placeholder="Company website" formControlName="website" [(ngModel)]="company.website" id="companyWebsite">
+                    <input nz-input placeholder="{{ 'company_website' | translate }}" formControlName="website" [(ngModel)]="company.website" id="companyWebsite">
                     <ng-template #companyWebsiteErrors let-control>
                       <div *ngFor="let validation of validation_messages.website">
                         <div *ngIf="editCompanyForm.get('website').hasError(validation.type) && (editCompanyForm.get('website').dirty || editCompanyForm.get('website').touched)" class="luxx-input-error mt-lg-1">{{ validation.message }}</div>
@@ -84,7 +84,7 @@
                 <div nz-row nzGutter="30">
                   <div nz-col nzSpan="12">
                     <nz-form-item class="luxx-input">
-                      <nz-form-label nzFor="companyNumberOfEmployees">Number of employees</nz-form-label>
+                      <nz-form-label nzFor="companyNumberOfEmployees">{{ 'number_or_employees' | translate }}</nz-form-label>
                       <nz-form-control nzHasFeedback [nzErrorTip]="companyNumberOfEmployeesErrors">
                         <nz-input-number
                           formControlName="numberOfEmployees"
@@ -104,7 +104,7 @@
                   </div>
                   <div nz-col nzSpan="12">
                     <nz-form-item class="luxx-input">
-                      <nz-form-label nzFor="companyAnnualRevenue">Annual revenue</nz-form-label>
+                      <nz-form-label nzFor="companyAnnualRevenue">{{ 'annual_revenue' | translate }}</nz-form-label>
                       <nz-form-control nzHasFeedback [nzErrorTip]="companyAnnualRevenueErrors">
                         <nz-input-number
                           formControlName="annualRevenue"
@@ -134,7 +134,7 @@
 
           <div nz-row nzGutter="30">
             <div nz-col nzSpan="24" class="text-right">
-              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!editCompanyForm.valid"><i nz-icon nzType="edit"></i>Submit Edit Company</button>
+              <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!editCompanyForm.valid"><i nz-icon nzType="edit"></i>{{ 'submit_edit_company' | translate }}</button>
             </div>
           </div>
 

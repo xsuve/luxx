@@ -10,13 +10,13 @@
         <div nz-row class="mb-lg-4">
           <div nz-col nzSpan="16" class="mt-lg-3">
             <nz-breadcrumb class="inner-content-breadcrumbs">
-              <nz-breadcrumb-item>Your Companies</nz-breadcrumb-item>
+              <nz-breadcrumb-item>{{ 'your_companies' | translate }}</nz-breadcrumb-item>
             </nz-breadcrumb>
           </div>
           <div nz-col nzSpan="8" class="text-right">
-            <button nz-button nzType="default" class="luxx-btn mr-lg-4" (click)="toggleFilters()"><i nz-icon nzType="filter"></i>Filter</button>
+            <button nz-button nzType="default" class="luxx-btn mr-lg-4" (click)="toggleFilters()"><i nz-icon nzType="filter"></i>{{ 'filter' | translate }}</button>
             <a routerLink="/companies/add">
-              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i>Add Company</button>
+              <button nz-button nzType="primary" class="luxx-btn"><i nz-icon nzType="plus"></i>{{ 'add_company' | translate }}</button>
             </a>
           </div>
         </div>

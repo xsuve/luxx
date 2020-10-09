@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { UtilsService } from '../services/utils.service';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -24,6 +26,7 @@ export class CompaniesComponent implements OnInit {
   companies: Company[] = [];
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private modalService: NzModalService,
     private userService: UserService,
@@ -49,15 +52,35 @@ export class CompaniesComponent implements OnInit {
 
   // Delete Company
   deleteCompany(id) {
+    let deleteCompanyTranslations = {
+      title: 'Confirm Delete Company',
+      content: 'Are you sure you want to delete this company?',
+      okText: 'Yes, Delete Company',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_company').subscribe(res => {
+      deleteCompanyTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_company').subscribe(res => {
+      deleteCompanyTranslations.content = res;
+    });
+    this.translate.get('yes_delete_company').subscribe(res => {
+      deleteCompanyTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deleteCompanyTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Company',
-      nzContent: 'Are you sure you want to delete this company?',
-      nzOkText: 'Yes, Delete Company',
+      nzTitle: deleteCompanyTranslations.title,
+      nzContent: deleteCompanyTranslations.content,
+      nzOkText: deleteCompanyTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deleteCompanyTranslations.cancelText,
       nzOnOk: () => {
         // Remove Company from Contacts
         this.contactService.getContacts(this.loggedInUser._id).subscribe(contacts => {
