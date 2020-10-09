@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
@@ -32,6 +34,7 @@ export class PipelineAddComponent implements OnInit {
   };
 
   constructor(
+    private translate: TranslateService,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
@@ -44,11 +47,25 @@ export class PipelineAddComponent implements OnInit {
     this.contactService.getContacts(this.loggedInUser._id).subscribe(res => {
       this.contacts = res;
     });
+
+
+    // Init Translations
+    this.initTranslations();
   }
 
   ngOnInit() {
     this.addPipelineForm = this.fb.group({
       title: ['', [Validators.required]]
+    });
+  }
+
+  // Init Translations
+  initTranslations() {
+    this.translate.get('the_title_is_required').subscribe(res => {
+      this.validation_messages.title[0].message = res;
+    });
+    this.translate.get('select_at_least_one_contact').subscribe(res => {
+      this.validation_messages.contacts[0].message = res;
     });
   }
 

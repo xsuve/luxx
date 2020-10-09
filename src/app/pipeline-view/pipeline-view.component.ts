@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { UtilsService } from '../services/utils.service';
@@ -56,6 +58,7 @@ export class PipelineViewComponent implements OnInit {
   };
 
   constructor(
+    private translate: TranslateService,
     private utilsService: UtilsService,
     private modalService: NzModalService,
     private drawerService: NzDrawerService,
@@ -75,10 +78,39 @@ export class PipelineViewComponent implements OnInit {
     this.editPipelineContactForm = this.fb.group({
       value: [0]
     });
+
+
+    // Init Translations
+    this.initTranslations();
   }
 
   ngOnInit() {
 
+  }
+
+  // Init Translations
+  initTranslations() {
+    this.translate.get('prospecting_uc').subscribe(res => {
+      this.boards[0].title = res;
+    });
+    this.translate.get('securing_lead_uc').subscribe(res => {
+      this.boards[1].title = res;
+    });
+    this.translate.get('pitching_solution_uc').subscribe(res => {
+      this.boards[2].title = res;
+    });
+    this.translate.get('qualifying_deals_uc').subscribe(res => {
+      this.boards[3].title = res;
+    });
+    this.translate.get('sending_proposal_uc').subscribe(res => {
+      this.boards[4].title = res;
+    });
+    this.translate.get('deal_negotiation_uc').subscribe(res => {
+      this.boards[5].title = res;
+    });
+    this.translate.get('closure_uc').subscribe(res => {
+      this.boards[6].title = res;
+    });
   }
 
   // Fetch Pipeline
@@ -183,8 +215,16 @@ export class PipelineViewComponent implements OnInit {
 
   // Edit Pipeline Contact
   editPipelineContact(contact) {
+    let editPipelineContactTranslations = {
+      title: 'Edit Pipeline Contact'
+    };
+
+    this.translate.get('edit_pipeline_contact').subscribe(res => {
+      editPipelineContactTranslations.title = res;
+    });
+
     this.drawerRef = this.drawerService.create({
-      nzTitle: 'Edit Pipeline Contact',
+      nzTitle: editPipelineContactTranslations.title,
       nzClosable: false,
       nzWidth: 384,
       nzContent: this.editPipelineContactTemplate,
@@ -219,15 +259,35 @@ export class PipelineViewComponent implements OnInit {
 
   // Delete Pipeline Contact
   deletePipelineContact(contact) {
+    let deletePipelineContactTranslations = {
+      title: 'Confirm Delete Pipeline Contact',
+      content: 'Are you sure you want to delete this pipeline contact?',
+      okText: 'Yes, Delete Pipeline Contact',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_pipeline_contact').subscribe(res => {
+      deletePipelineContactTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_pipeline_contact').subscribe(res => {
+      deletePipelineContactTranslations.content = res;
+    });
+    this.translate.get('yes_delete_pipeline_contact').subscribe(res => {
+      deletePipelineContactTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deletePipelineContactTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Pipeline Contact',
-      nzContent: 'Are you sure you want to delete this pipeline contact?',
-      nzOkText: 'Yes, Delete Pipeline Contact',
+      nzTitle: deletePipelineContactTranslations.title,
+      nzContent: deletePipelineContactTranslations.content,
+      nzOkText: deletePipelineContactTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deletePipelineContactTranslations.cancelText,
       nzOnOk: () => {
         let pipelineContacts: PipelineContact[] = this.pipeline.contacts;
 

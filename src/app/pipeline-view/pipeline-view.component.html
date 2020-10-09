@@ -11,7 +11,7 @@
           <div nz-col nzSpan="24" class="mt-lg-3">
             <nz-breadcrumb class="inner-content-breadcrumbs mb-lg-5">
               <nz-breadcrumb-item>
-                <a routerLink="/pipelines">Your Pipelines</a>
+                <a routerLink="/pipelines">{{ 'your_pipelines' | translate }}</a>
               </nz-breadcrumb-item>
               <nz-breadcrumb-item>{{ pipeline.title }}</nz-breadcrumb-item>
             </nz-breadcrumb>
@@ -34,8 +34,8 @@
                 </a>
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                   <ul nz-menu class="luxx-dropdown-menu">
-                    <li nz-menu-item (click)="editPipelineContact(contact)"><i nz-icon nzType="edit"></i> Edit</li>
-                    <li nz-menu-item (click)="deletePipelineContact(contact)"><i nz-icon nzType="delete"></i> Delete</li>
+                    <li nz-menu-item (click)="editPipelineContact(contact)"><i nz-icon nzType="edit"></i> {{ 'edit' | translate }}</li>
+                    <li nz-menu-item (click)="deletePipelineContact(contact)"><i nz-icon nzType="delete"></i> {{ 'delete' | translate }}</li>
                   </ul>
                 </nz-dropdown-menu>
                 <nz-row [nzGutter]="30">
@@ -44,7 +44,7 @@
                   </nz-col>
                   <nz-col [nzSpan]="17">
                     <h4 nz-typography class="luxx-card-title mb-lg-1">{{ contact ? contact.fullName : '' }}</h4>
-                    <span nz-typography class="luxx-card-text d-block">Value: ${{ (contact.value | number: '1.0-2') }}</span>
+                    <span nz-typography class="luxx-card-text d-block">{{ 'value' | translate }}: ${{ (contact.value | number: '1.0-2') }}</span>
                   </nz-col>
                 </nz-row>
                 <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>
@@ -62,7 +62,7 @@
 <ng-template #editPipelineContactTemplate let-data let-drawerRef="drawerRef">
   <form nz-form [formGroup]="editPipelineContactForm" (ngSubmit)="submitEditPipelineContact(editPipelineContactForm.value, data?.value._id)">
     <nz-form-item class="luxx-input">
-      <nz-form-label nzFor="value">Value</nz-form-label>
+      <nz-form-label nzFor="value">{{ 'value' | translate }}</nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="valueErrors">
         <nz-input-number
           formControlName="value"
@@ -82,7 +82,7 @@
     </nz-form-item>
     <nz-divider></nz-divider>
     <div class="text-right">
-      <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!editPipelineContactForm.valid"><i nz-icon nzType="plus"></i>Submit Edit Pipeline Contact</button>
+      <button nz-button nzType="primary" class="luxx-btn" type="submit" [disabled]="!editPipelineContactForm.valid"><i nz-icon nzType="plus"></i>{{ 'submit_edit_pipeline_contact' | translate }}</button>
     </div>
   </form>
 </ng-template>

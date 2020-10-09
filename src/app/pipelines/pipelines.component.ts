@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TranslateService } from '@ngx-translate/core';
+
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { User } from '../models/user.model';
@@ -19,6 +21,7 @@ export class PipelinesComponent implements OnInit {
   pipelines: Pipeline[] = [];
 
   constructor(
+    private translate: TranslateService,
     private modalService: NzModalService,
     private userService: UserService,
     private pipelineService: PipelineService
@@ -49,15 +52,35 @@ export class PipelinesComponent implements OnInit {
 
   // Delete Pipeline
   deletePipeline(id) {
+    let deletePipelineTranslations = {
+      title: 'Confirm Delete Pipeline',
+      content: 'Are you sure you want to delete this pipeline?',
+      okText: 'Yes, Delete Pipeline',
+      cancelText: 'Cancel'
+    };
+
+    this.translate.get('confirm_delete_pipeline').subscribe(res => {
+      deletePipelineTranslations.title = res;
+    });
+    this.translate.get('are_you_sure_delete_pipeline').subscribe(res => {
+      deletePipelineTranslations.content = res;
+    });
+    this.translate.get('yes_delete_pipeline').subscribe(res => {
+      deletePipelineTranslations.okText = res;
+    });
+    this.translate.get('cancel').subscribe(res => {
+      deletePipelineTranslations.cancelText = res;
+    });
+
     this.modalService.error({
       nzClassName: 'luxx-modal',
       nzIconType: 'delete',
-      nzTitle: 'Confirm Delete Pipeline',
-      nzContent: 'Are you sure you want to delete this pipeline?',
-      nzOkText: 'Yes, Delete Pipeline',
+      nzTitle: deletePipelineTranslations.title,
+      nzContent: deletePipelineTranslations.content,
+      nzOkText: deletePipelineTranslations.okText,
       nzOkType: 'danger',
       nzMaskClosable: true,
-      nzCancelText: 'Cancel',
+      nzCancelText: deletePipelineTranslations.cancelText,
       nzOnOk: () => {
         // Delete Contact
         this.pipelineService.deletePipeline(id).subscribe(res => {
