@@ -11,6 +11,8 @@ import { UserService } from '../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+  logInLoading: boolean = false;
+
   logInForm: FormGroup;
   validation_messages = {
     'email': [
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
 
   // Submit Log In
   submitLogIn(value) {
+    this.logInLoading = true;
     this.userService.getUserByEmail(value.email).subscribe(res => {
       if(res) {
         if(res.verified) {
@@ -46,6 +49,8 @@ export class LoginComponent implements OnInit {
               type: 'success',
               message: 'The login link has been sent to your email address.'
             };
+
+            this.logInLoading = false;
           });
         } else {
           this.validation_messages.alert = {

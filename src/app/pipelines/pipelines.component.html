@@ -34,7 +34,7 @@
               </ng-template>
               <ng-template #descriptionTemplate>
                 <a routerLink="/pipeline/{{ pipeline._id }}">
-                  <span nz-typography class="luxx-card-text d-block">Value: ${{ (getPipelineValue(pipeline.contacts) | number: '1.0-2') }}</span>
+                  <span nz-typography class="luxx-card-text d-block">Value: {{ (getPipelineValue(pipeline.contacts) | currency:loggedInUser.currency:'symbol':'.0-2') }}</span>
                 </a>
               </ng-template>
               <ng-template #actionView>

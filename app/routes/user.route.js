@@ -187,7 +187,10 @@ userRoute.route('/login/:token').get((req, res, next) => {
             profile: data.profile,
             country: data.country,
             signUpDate: data.signUpDate,
-            verified: true
+            verified: true,
+            language: data.language,
+            currency: data.currency,
+            darkMode: data.darkMode
           }, {
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
           });
@@ -232,5 +235,21 @@ userRoute.route('/onboardUser/:id').put((req, res, next) => {
     }
   });
 });
+
+// Update User
+userRoute.route('/updateUser/:id').put((req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+  }, (error, data) => {
+    if(error) {
+      return next(error);
+    } else {
+      res.json(data);
+
+      console.log('\x1b[36m%s\x1b[0m', '[LUXX][user] User updated!');
+    }
+  });
+});
+
 
 module.exports = userRoute;

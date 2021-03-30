@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { CurrencyPipe } from '@angular/common';
 
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler, ScrollDispatcher } from '@angular/cdk/scrolling';
@@ -108,6 +109,7 @@ registerLocaleData(en);
     ViewportRuler,
     DragDropRegistry,
     ScrollDispatcher,
+    CurrencyPipe,
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]

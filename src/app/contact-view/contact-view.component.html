@@ -170,7 +170,7 @@
                             <p nz-typography class="mb-lg-0">{{ 'from' | translate }} {{ invoice.addDate | date: 'd LLLL' }}</p>
                             <nz-row [nzGutter]="30" class="mt-lg-4 mt-3">
                               <nz-col [nzSpan]="12">
-                                <p nz-typography class="mb-lg-0 text-green">$ {{ invoice.value | number }}</p>
+                                <p nz-typography class="mb-lg-0 text-green">{{ invoice.value | currency:loggedInUser.currency:'symbol':'.0-2' }}</p>
                               </nz-col>
                               <nz-col [nzSpan]="12" class="text-right">
                                 <nz-tag class="luxx-card-tag text-yellow bg-yellow-light" *ngIf="!invoiceOverdue(invoice.dueDate) && !invoice.paid">{{ 'processing_uc' | translate }}</nz-tag>

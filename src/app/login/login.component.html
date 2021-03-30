@@ -26,7 +26,7 @@
               <div class="form-text mt-lg-3 mb-lg-3">Password-less log in. The log in link will be sent via your account email.</div>
             </nz-form-item>
             <nz-alert [nzType]="validation_messages.alert.type" [nzMessage]="validation_messages.alert.message" *ngIf="validation_messages.alert.message.length > 0" class="luxx-alert mb-lg-4"></nz-alert>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!logInForm.valid">Log In</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block luxx-btn" [disabled]="!logInForm.valid"><i nz-icon nzType="loading" *ngIf="logInLoading" class="mr-lg-3 mr-3"></i> Log In</button>
           </form>
           <div nz-row class="mt-lg-4">
             <p class="mb-lg-0 text-right">

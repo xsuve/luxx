@@ -113,6 +113,15 @@ export class UserService {
       )
   }
 
+  // Update User
+  updateUser(id, data): Observable<any> {
+    let API_URL = `${this.endpoint}/updateUser/${id}`;
+    return this.http.put(API_URL, data, { headers: this.headers })
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

@@ -7,4 +7,7 @@ export class User {
   signUpDate: Date;
   token: string;
   verified: boolean;
+  language: string;
+  currency: string;
+  darkMode: boolean;
 }

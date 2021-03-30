@@ -44,7 +44,7 @@
                   </nz-col>
                   <nz-col [nzSpan]="17">
                     <h4 nz-typography class="luxx-card-title mb-lg-1">{{ contact ? contact.fullName : '' }}</h4>
-                    <span nz-typography class="luxx-card-text d-block">{{ 'value' | translate }}: ${{ (contact.value | number: '1.0-2') }}</span>
+                    <span nz-typography class="luxx-card-text d-block">{{ 'value' | translate }}: {{ (contact.value | currency:loggedInUser.currency:'symbol':'.0-2') }}</span>
                   </nz-col>
                 </nz-row>
                 <div class="pipeline-board-placeholder mb-lg-3" *cdkDragPlaceholder></div>

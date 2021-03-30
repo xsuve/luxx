@@ -1,20 +1,47 @@
 import { Injectable } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+
+import { TranslateService } from '@ngx-translate/core';
+
+import { User } from '../models/user.model';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
+  loggedInUser: User;
+
+  availableLanguages = [
+    { iso: 'en', label: 'English' },
+    { iso: 'de', label: 'German' },
+    { iso: 'es', label: 'Spanish' },
+    { iso: 'ro', label: 'Romanian' }
+  ];
+  availableCurrencies = [
+    { label: 'US Dollar', abbreviation: 'USD', symbol: '$', prefix: true },
+    { label: 'Euro', abbreviation: 'EUR', symbol: '€', prefix: true },
+    { label: 'Great Britain Pound', abbreviation: 'GBP', symbol: '£', prefix: true },
+    { label: 'Romanian Leu', abbreviation: 'RON', symbol: 'Lei', prefix: false }
+  ];
+
   companyIndustries = [
     { name: 'Information Technology (IT)', value: 'Information Technology (IT)' }
   ];
-  formatterDollar = (value: number) => `$ ${value}`;
-  parserDollar = (value: string) => value.replace('$ ', '');
+  formatterDollar = (value: number) => this.currencyPipe.transform(value, this.loggedInUser.currency, 'symbol', '.0-2');
+  parserDollar = (value: string) => value;
 
   formatterInvoiceNumber = (value: number) => `# ${value}`;
   parserInvoiceNumber = (value: string) => value.replace('# ', '');
 
-  constructor() { }
+  constructor(
+    private currencyPipe: CurrencyPipe,
+    private translate: TranslateService,
+    private userService: UserService
+  ) {
+    this.loggedInUser = this.userService.getLoggedInUser();
+  }
 
   // Format Initials
   formatInitials(string) {

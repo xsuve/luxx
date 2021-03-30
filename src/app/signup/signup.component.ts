@@ -11,6 +11,8 @@ import { UserService } from '../services/user.service';
 })
 export class SignupComponent implements OnInit {
 
+  signUpLoading: boolean = false;
+
   signUpForm: FormGroup;
   validation_messages = {
     'email': [
@@ -38,6 +40,7 @@ export class SignupComponent implements OnInit {
 
   // Submit Sign Up
   submitSignUp(value) {
+    this.signUpLoading = true;
     this.userService.getUserByEmail(value.email).subscribe(res => {
       if(res) {
         this.userService.createUser({
@@ -47,7 +50,10 @@ export class SignupComponent implements OnInit {
           country: '',
           signUpDate: new Date(),
           token: '',
-          verified: false
+          verified: false,
+          language: 'en',
+          currency: 'USD',
+          darkMode: false
         }).subscribe(res => {
           // Reset Fields
           this.signUpForm = this.fb.group({
@@ -59,6 +65,8 @@ export class SignupComponent implements OnInit {
             type: 'success',
             message: 'You have been successfully registered. Follow your email address to verify your account.'
           };
+
+          this.signUpLoading = false;
         });
       } else {
         this.validation_messages.alert = {

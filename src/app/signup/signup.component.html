@@ -37,7 +37,7 @@
               <div class="form-text mt-lg-3 mb-lg-3">Password-less sign up. An email will be sent to you to verify your account.</div>
             </nz-form-item>
             <nz-alert [nzType]="validation_messages.alert.type" [nzMessage]="validation_messages.alert.message" *ngIf="validation_messages.alert.message.length > 0" class="luxx-alert mb-lg-4"></nz-alert>
-            <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="!signUpForm.valid">Sign Up</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block luxx-btn" [disabled]="!signUpForm.valid"><i nz-icon nzType="loading" *ngIf="signUpLoading" class="mr-lg-3 mr-3"></i> Sign Up</button>
           </form>
           <div class="mt-lg-4 text-right">
             <p class="mb-lg-0">

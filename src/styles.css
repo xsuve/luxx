@@ -495,6 +495,20 @@ nz-select {
 }
 
 
+/* Notifications */
+.luxx-notification .ant-notification-notice-icon {
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 3px;
+}
+.luxx-notification .ant-notification-notice-message {
+  font-size: 15px;
+}
+.luxx-notification .ant-notification-notice-description {
+  font-size: 13px;
+}
+
+
 /* Timeline */
 .luxx-timeline .luxx-timeline-item-title {
   font-size: 13px;

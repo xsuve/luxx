@@ -22,6 +22,15 @@ let User = new Schema({
   },
   verified: {
     type: Boolean
+  },
+  language: {
+    type: String
+  },
+  currency: {
+    type: String
+  },
+  darkMode: {
+    type: Boolean
   }
 }, {
   collection: 'users'
