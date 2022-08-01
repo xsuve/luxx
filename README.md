@@ -1,4 +1,4 @@
-![luxx - Professional CRM for Freelancers and Small Businesses](https://xsuve.com/portfolio/luxx/header.png)
+![luxx - Professional CRM for Freelancers and Small Businesses](screenshot.png)
 
 `2020 Series`
 # luxx - Professional CRM for Freelancers and Small Businesses
